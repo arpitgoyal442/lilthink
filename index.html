@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#12352B">
+<meta name="color-scheme" content="light">
+<title>Lil Think – Little Minds. Big Discoveries.</title>
+<meta name="description" content="Simple, play-based daily activities for children aged 2–5, delivered to your inbox.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#FBF8F2;--bg2:#F3EDE0;--card:#fff;
+  --ink:#12352B;--mute:#4A5F56;--line:rgba(18,53,43,.13);
+  --g:#12352B;--g2:#1C4A3C;--gold:#D9A94A;--goldd:#8A6118;
+  --y:#F6E7BF;--p:#F5D9C9;--m:#D6E7DA;--l:#E0DCF1;--s:#D6E7F1;
+  --on:#12352B;--on2:#3A5148;
+  --r:28px;--gut:22px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:76px;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.65 Figtree,system-ui,sans-serif;overflow-x:clip;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:Fraunces,Georgia,serif;font-weight:600;line-height:1.1;margin:0;letter-spacing:-.015em;text-wrap:balance}
+h1{font-size:clamp(2.2rem,8.6vw,4.3rem)}
+h2{font-size:clamp(1.85rem,6.4vw,2.9rem)}
+h3{font-size:1.2rem}
+p{margin:0 0 1em;color:var(--mute);max-width:62ch;text-wrap:pretty}
+img,svg,video{max-width:100%}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--gold);outline-offset:3px;border-radius:10px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.w{max-width:1120px;margin:0 auto;padding:0 var(--gut)}
+.sec{padding:96px 0}
+.tint{background:var(--bg2)}
+.lede{font-size:1.15rem;margin-top:20px}
+.note{font-size:.92rem}
+
+/* header */
+header{position:sticky;top:0;z-index:30;background:rgba(251,248,242,.92);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);padding-top:env(safe-area-inset-top,0px)}
+nav.top{display:flex;align-items:center;justify-content:space-between;height:64px}
+.logo{font:700 1.5rem Fraunces,serif;text-decoration:none;display:flex;gap:10px;align-items:center;letter-spacing:-.01em}
+.logo i{width:28px;height:28px;border-radius:10px 10px 10px 4px;background:var(--g);position:relative;display:inline-block}
+.logo i::after{content:"";position:absolute;width:10px;height:10px;border-radius:50%;background:var(--gold);right:5px;top:5px}
+.links{display:flex;gap:28px;align-items:center}
+.links a{text-decoration:none;font-weight:600;font-size:.95rem}
+.links a:not(.btn):hover{color:var(--goldd)}
+.burger{display:none;width:48px;height:48px;border:0;background:transparent;border-radius:14px;cursor:pointer;position:relative;margin-right:-10px}
+.burger span{position:absolute;left:13px;right:13px;height:2px;border-radius:2px;background:var(--ink);transition:transform .25s,opacity .2s,top .25s}
+.burger span:nth-child(1){top:18px}.burger span:nth-child(2){top:23px}.burger span:nth-child(3){top:28px}
+.burger[aria-expanded=true] span:nth-child(1){top:23px;transform:rotate(45deg)}
+.burger[aria-expanded=true] span:nth-child(2){opacity:0}
+.burger[aria-expanded=true] span:nth-child(3){top:23px;transform:rotate(-45deg)}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:50px;border:0;cursor:pointer;font:700 1rem Figtree,sans-serif;padding:14px 28px;border-radius:999px;background:var(--g);color:#FBF3E2;text-decoration:none;text-align:center;line-height:1.2;transition:transform .2s,box-shadow .2s,background .2s}
+.btn.sm{min-height:42px;padding:9px 20px;font-size:.92rem}
+.btn.o{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 2px var(--ink)}
+.btn.gold{background:var(--gold);color:var(--g)}
+.btn[disabled]{opacity:.7;cursor:wait}
+@media (hover:hover){.btn:hover{transform:translateY(-2px);box-shadow:0 12px 26px -10px rgba(18,53,43,.55)}.btn.o:hover{background:var(--g);color:#FBF3E2}}
+
+/* hero */
+.hero{display:grid;gap:40px;grid-template-columns:1.05fr .95fr;align-items:center;padding:56px var(--gut) 90px;position:relative}
+.cta{display:flex;gap:12px;flex-wrap:wrap;margin:30px 0 18px}
+.art{background:radial-gradient(circle at 30% 20%,var(--y),var(--p) 75%);border-radius:44% 56% 48% 52%/52% 44% 56% 48%;padding:20px;animation:float 8s ease-in-out infinite;max-width:520px;margin:0 auto;width:100%}
+@keyframes float{50%{transform:translateY(-8px)}}
+.two{display:grid;gap:56px;grid-template-columns:1fr 1fr;align-items:center}
+
+/* abilities */
+.grid{display:grid;gap:16px;grid-template-columns:repeat(4,1fr);margin-top:40px}
+.ab{display:flex;flex-direction:column;gap:14px;text-align:left;border:2px solid transparent;border-radius:var(--r);padding:24px;color:var(--on);cursor:pointer;font:inherit;line-height:1.5;transition:transform .2s,box-shadow .2s,opacity .25s,border-color .2s;box-shadow:0 1px 0 rgba(18,53,43,.06),0 14px 28px -20px rgba(18,53,43,.5);-webkit-tap-highlight-color:transparent}
+.ab .ic{font-size:1.7rem;width:54px;height:54px;flex:none;border-radius:18px;background:rgba(255,255,255,.72);display:grid;place-items:center}
+.ab .t{display:block;font:600 1.15rem/1.2 Fraunces,serif}
+.ab .d{display:block;margin-top:8px;font-size:.95rem;color:var(--on2)}
+.ab .more{display:block;margin-top:12px;padding-top:10px;border-top:1px solid rgba(18,53,43,.18);font-size:.88rem;font-weight:600;color:var(--on)}
+.ab[aria-pressed=true]{border-color:var(--g)}
+.dim .ab:not(.rel){opacity:.5}
+@media (hover:hover){.ab:hover{transform:translateY(-4px)}}
+
+/* everyday play */
+.play{display:grid;gap:14px;grid-template-columns:repeat(3,1fr);margin-top:40px}
+.pc{background:var(--card);border-radius:22px;padding:22px;box-shadow:0 14px 28px -22px rgba(18,53,43,.55);border:1px solid var(--line);display:flex;gap:16px;align-items:center}
+.pc b{font-size:1.6rem;width:48px;height:48px;border-radius:15px;background:var(--bg2);display:grid;place-items:center;flex:none;font-weight:400}
+.pc span{color:var(--ink);font-weight:500;line-height:1.4}
+
+/* steps */
+.steps{display:grid;gap:16px;grid-template-columns:repeat(3,1fr);margin:40px 0;list-style:none;padding:0}
+.st{border-radius:var(--r);padding:28px;color:var(--on)}
+.st p{color:var(--on2);margin:10px 0 0}
+.st .n{width:40px;height:40px;border-radius:50%;background:var(--g);color:#FBF3E2;display:grid;place-items:center;font:700 1rem Fraunces,serif;margin-bottom:16px}
+.mail{background:var(--card);border-radius:24px;box-shadow:0 30px 56px -30px rgba(18,53,43,.55);max-width:580px;margin:0 auto;overflow:hidden;border:1px solid var(--line)}
+.mh{padding:14px 22px;background:var(--bg2);font-size:.86rem;color:var(--mute);border-bottom:1px solid var(--line);line-height:1.6}
+.mh b{color:var(--ink)}
+.mbd{padding:22px}
+.mbd p{margin:0 0 .75em}
+.tag{display:inline-block;background:var(--l);color:var(--on);border-radius:99px;padding:3px 12px;font-size:.8rem;font-weight:700;margin:0 6px 10px 0}
+
+/* reassurance */
+.warm{background:var(--g);color:#FBF3E2;border-radius:40px;padding:80px 32px;text-align:center;position:relative;overflow:hidden}
+.warm::before,.warm::after{content:"";position:absolute;border-radius:50%;pointer-events:none}
+.warm::before{width:340px;height:340px;background:radial-gradient(circle,rgba(217,169,74,.22),transparent 70%);top:-150px;right:-90px}
+.warm::after{width:300px;height:300px;background:radial-gradient(circle,rgba(214,231,218,.14),transparent 70%);bottom:-140px;left:-80px}
+.warm>*{position:relative}
+.warm h2{max-width:20ch;margin:0 auto;color:#FFF8E8}
+.warm p{color:#D3E0D6;margin:1.1em auto}
+.warm .quote{font:500 1.35rem/1.35 Fraunces,serif;color:var(--gold);margin:1.4em auto}
+
+/* signup */
+.signup{background:var(--card);border-radius:36px;padding:56px 32px;text-align:center;box-shadow:0 40px 70px -40px rgba(18,53,43,.6);max-width:740px;margin:0 auto;border:1px solid var(--line)}
+.signup p{margin:16px auto}
+.f{display:flex;gap:10px;margin:26px auto 8px;max-width:540px}
+.f input{flex:1;min-width:0;font:inherit;font-size:1rem;min-height:54px;padding:12px 22px;border-radius:999px;border:2px solid var(--line);background:var(--bg);color:var(--ink)}
+.f input::placeholder{color:#7D8D85}
+.f input:focus{outline:none;border-color:var(--g);box-shadow:0 0 0 4px rgba(217,169,74,.35)}
+.f input[aria-invalid=true]{border-color:#B4411A}
+.signup .err{color:#B4411A;font-weight:600;min-height:1.4em;margin:6px auto 0;font-size:.95rem}
+.signup .fine{margin:6px auto 0}
+.fine{font-size:.82rem}
+.ok{padding:8px 0}
+.ok .big{font-size:3rem;line-height:1.2}
+.sp{width:16px;height:16px;border:3px solid rgba(255,255,255,.4);border-top-color:#fff;border-radius:50%;display:inline-block;animation:r .8s linear infinite}
+@keyframes r{to{transform:rotate(360deg)}}
+
+/* footer */
+footer{padding:56px 0 40px;border-top:1px solid var(--line);background:var(--bg)}
+.fg{display:flex;justify-content:space-between;gap:32px;flex-wrap:wrap}
+footer a:not(.logo){display:block;text-decoration:none;color:var(--mute);padding:6px 0}
+footer a:not(.logo):hover{color:var(--ink);text-decoration:underline}
+.fl{display:flex;gap:48px}
+
+/* sticky mobile CTA */
+.sticky{display:none}
+
+/* tablet */
+@media (max-width:900px){
+  .sec{padding:68px 0}
+  .hero{grid-template-columns:1fr;gap:34px;padding-top:34px;padding-bottom:64px}
+  .two{grid-template-columns:1fr;gap:38px}
+  .grid{grid-template-columns:repeat(2,1fr)}
+  .steps,.play{grid-template-columns:1fr}
+  .burger{display:block}
+  .links{display:none;position:absolute;left:0;right:0;top:100%;flex-direction:column;align-items:stretch;gap:0;background:var(--bg);border-bottom:1px solid var(--line);padding:6px var(--gut) 20px;box-shadow:0 24px 30px -24px rgba(18,53,43,.4)}
+  .links.open{display:flex}
+  .links a:not(.btn){padding:15px 2px;border-bottom:1px solid var(--line);font-size:1.05rem}
+  .links .btn{margin-top:16px}
+  .links .btn.sm{min-height:50px;font-size:1rem}
+  .warm{padding:64px 28px}
+  .sticky{display:flex;position:fixed;z-index:25;left:14px;right:14px;bottom:calc(14px + env(safe-area-inset-bottom,0px));min-height:54px;align-items:center;justify-content:center;border-radius:999px;background:var(--g);color:#FBF3E2;font-weight:700;text-decoration:none;box-shadow:0 18px 34px -12px rgba(18,53,43,.7);transform:translateY(140%);visibility:hidden;transition:transform .35s,visibility .35s}
+  .sticky.on{transform:none;visibility:visible}
+  body{padding-bottom:78px}
+}
+
+/* phone */
+@media (max-width:560px){
+  :root{--gut:20px;--r:24px}
+  body{font-size:16.5px}
+  .sec{padding:56px 0}
+  .hero{padding-bottom:28px}
+  .lede{font-size:1.06rem;margin-top:16px}
+  .cta{flex-direction:column;gap:12px;margin:26px 0 16px}
+  .cta .btn{width:100%}
+  .art{padding:14px;max-width:340px}
+  .grid{grid-template-columns:1fr;gap:12px;margin-top:30px}
+  .ab{flex-direction:row;align-items:flex-start;gap:16px;padding:18px}
+  .ab .ic{width:48px;height:48px;font-size:1.5rem;border-radius:16px}
+  .ab .d{margin-top:4px}
+  .play{margin-top:28px;gap:10px}
+  .pc{padding:16px}
+  .steps{margin:30px 0}
+  .st{padding:24px}
+  .warm{border-radius:30px;padding:52px 22px}
+  .warm .btn{width:100%}
+  .signup{border-radius:28px;padding:40px 20px}
+  .f{flex-direction:column;margin-top:22px}
+  .f .btn{width:100%}
+  .fg{flex-direction:column;gap:26px}
+  .fl{gap:44px}
+  .mbd{padding:18px}
+  .mh{padding:12px 18px}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.3.1/umd/react.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.3.1/umd/react-dom.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.24.7/babel.min.js"></script>
+<script type="text/babel">
+const { useState, useEffect } = React;
+
+/* ───────── Subscription integration layer ─────────
+   The browser only ever talks to YOUR backend endpoint. That endpoint (Express, Next API route,
+   Cloudflare Worker…) should: re-validate the email, reject duplicates (unique index on lowercased email),
+   store the consent record, send the welcome email through Resend and (optionally) call the n8n webhook,
+   all with secrets kept in server env vars. See api/subscribe.js.
+   Contract:  POST {email, consent:true, consentText, consentAt, source}
+   Replies:   200 {status:"subscribed"} | 200 {status:"already_subscribed"} | 400 {error} | 5xx            */
+const CONFIG = { endpoint: "/api/subscribe", mock: false /* true = fake success for design previews, nothing is sent */ };
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+const CONSENT_TEXT = "By subscribing, you agree to receive daily activity emails from Lil Think. You can unsubscribe anytime.";
+
+async function subscribe(rawEmail) {
+  const email = rawEmail.trim().toLowerCase();
+  if (!EMAIL_RE.test(email) || email.length > 254) return { ok: false, error: "Please enter a valid email address, like name@example.com." };
+  if (CONFIG.mock) { // demo only – no data leaves the page
+    await new Promise(r => setTimeout(r, 900));
+    return { ok: true, status: "subscribed" };
+  }
+  try {
+    const res = await fetch(CONFIG.endpoint, {
+      method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, consent: true, consentText: CONSENT_TEXT, consentAt: new Date().toISOString(), source: "landing" })
+    });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok) return { ok: false, error: data.error || "We couldn’t sign you up just now. Please try again in a moment." };
+    return { ok: true, status: data.status || "subscribed" };
+  } catch { return { ok: false, error: "We couldn’t reach Lil Think. Check your connection and try again." }; }
+}
+
+/* ───────── Content ───────── */
+const ABILITIES = [
+ ["Memory","🧸","Remembering objects, people, stories and past experiences.","y",[8,3]],
+ ["Pattern Recognition","🔷","Recognising similarities, differences, sequences and patterns.","s",[4,6]],
+ ["Attention & Focus","🔍","Learning to notice details and stay engaged with an activity.","m",[8,10]],
+ ["Language & Communication","💬","Understanding words, expressing thoughts, asking questions and telling stories.","p",[0,7,11]],
+ ["Logical Thinking","🔗","Connecting ideas, recognising relationships and understanding simple cause and effect.","l",[1,6]],
+ ["Spatial Reasoning","🧩","Understanding shapes, positions, directions and how objects fit together.","s",[6,1]],
+ ["Problem-Solving","💡","Trying different approaches when something doesn’t work.","y",[4,9,5]],
+ ["Creativity & Imagination","🎨","Inventing stories, imagining possibilities and finding new ways to use objects.","p",[3,9]],
+ ["Working Memory","🧠","Holding small pieces of information in mind while completing a task.","l",[0,2]],
+ ["Cognitive Flexibility","🔄","Adapting to new rules, trying different ideas and changing approaches.","m",[6,7,10]],
+ ["Self-Regulation","🌱","Gradually learning to manage emotions, wait, pause and respond to situations.","s",[2,9,11]],
+ ["Social Understanding","🤝","Recognising emotions, taking turns, cooperating and understanding other people’s perspectives.","y",[3,10]],
+];
+const PLAY = [["🪀","Remembering where a toy was hidden."],["🎨","Recognising patterns in colours and shapes."],["🧱","Building a tower with blocks."],["📖","Telling an imaginary story."],["🧩","Finding a different way to solve a puzzle."],["🫶","Understanding how a friend might feel."]];
+const STEPS = [["Subscribe","Enter your email address and join Lil Think for free.","y"],["Receive Your Daily Activity","Get a carefully organised activity in your inbox every day, with instructions, required materials, age guidance and the developmental ability it helps practise.","m"],["Play Together","Spend around 10–15 minutes playing with your child. You don’t need to be an expert. Just be present and enjoy the experience.","l"]];
+const go = id => e => { e.preventDefault(); document.getElementById(id)?.scrollIntoView({ behavior: "smooth" }); };
+
+/* ───────── Components ───────── */
+const Logo = () => <a className="logo" href="#home" onClick={go("home")}><i aria-hidden="true"/>Lil Think</a>;
+
+const Header = () => {
+  const [open, setOpen] = useState(false);
+  useEffect(() => {
+    const k = e => e.key === "Escape" && setOpen(false);
+    window.addEventListener("keydown", k); return () => window.removeEventListener("keydown", k);
+  }, []);
+  const nav = id => e => { setOpen(false); go(id)(e); };
+  return (
+    <header><div className="w"><nav className="top" aria-label="Main">
+      <Logo/>
+      <button className="burger" aria-expanded={open} aria-controls="menu" aria-label={open ? "Close menu" : "Open menu"} onClick={() => setOpen(o => !o)}><span/><span/><span/></button>
+      <div id="menu" className={"links" + (open ? " open" : "")}>
+        <a href="#home" onClick={nav("home")}>Home</a>
+        <a href="#why" onClick={nav("why")}>Why It Matters</a>
+        <a href="#abilities" onClick={nav("abilities")}>What We Develop</a>
+        <a href="#how" onClick={nav("how")}>How It Works</a>
+        <a className="btn sm" href="#join" onClick={nav("join")}>Subscribe Free</a>
+      </div>
+    </nav></div></header>
+  );
+};
+
+const HeroArt = () => (
+  <svg viewBox="0 0 400 360" role="img" aria-label="A parent and child playing with colourful blocks, a puzzle and a book" style={{display:"block",width:"100%",height:"auto"}}>
+    <ellipse cx="200" cy="322" rx="170" ry="16" fill="#12352B" opacity=".1"/>
+    <circle cx="130" cy="120" r="34" fill="#EDBE95"/><path d="M96 112c4-34 66-38 68 0-16-14-40-18-68 0z" fill="#4A2F25"/>
+    <path d="M78 310c0-80 14-148 52-148s52 68 52 148z" fill="#1C4A3C"/>
+    <circle cx="272" cy="196" r="27" fill="#EDBE95"/><path d="M246 190c6-26 48-26 52 0-14-8-34-9-52 0z" fill="#33231C"/>
+    <path d="M232 310c0-54 10-92 40-92s40 38 40 92z" fill="#D9A94A"/>
+    <circle cx="263" cy="198" r="3" fill="#33231C"/><circle cx="282" cy="198" r="3" fill="#33231C"/><path d="M265 208q8 6 16 0" stroke="#33231C" strokeWidth="2.5" fill="none" strokeLinecap="round"/>
+    <circle cx="121" cy="122" r="3" fill="#33231C"/><circle cx="140" cy="122" r="3" fill="#33231C"/><path d="M122 133q8 7 17 0" stroke="#33231C" strokeWidth="2.5" fill="none" strokeLinecap="round"/>
+    <rect x="170" y="268" width="46" height="42" rx="8" fill="#E5836F"/><rect x="176" y="228" width="40" height="40" rx="8" fill="#7FB3D5"/><rect x="182" y="192" width="34" height="36" rx="8" fill="#A99BDB"/>
+    <text x="193" y="296" fontSize="22" fontWeight="700" fill="#fff" textAnchor="middle">A</text><text x="196" y="256" fontSize="20" fontWeight="700" fill="#fff" textAnchor="middle">B</text>
+    <path d="M300 290h46v20h-46z" fill="#9CC7A8"/><circle cx="323" cy="286" r="8" fill="#9CC7A8"/>
+    <rect x="46" y="284" width="64" height="26" rx="5" fill="#E8A07A"/><rect x="50" y="288" width="56" height="4" rx="2" fill="#fff" opacity=".7"/>
+    <circle cx="60" cy="50" r="22" fill="#F1CF7A"/><path d="M340 60l6 14 15 2-11 10 3 15-13-8-13 8 3-15-11-10 15-2z" fill="#A99BDB"/>
+  </svg>
+);
+
+const Hero = () => (
+  <section id="home" className="hero w">
+    <div>
+      <h1>Big Learning Starts With Little Play.</h1>
+      <p className="lede">Your child’s early years are full of incredible possibilities. Help them explore, think, create and grow with simple daily activities designed for little minds.</p>
+      <div className="cta">
+        <a className="btn" href="#join" onClick={go("join")}>Start Your Free Daily Activities</a>
+        <a className="btn o" href="#abilities" onClick={go("abilities")}>Explore What Your Child Can Develop</a>
+      </div>
+      <p className="note">Designed for curious little minds aged 2–5.</p>
+    </div>
+    <div className="art"><HeroArt/></div>
+  </section>
+);
+
+const Brain = () => (
+  <svg viewBox="0 0 320 280" role="img" aria-label="Illustration of a brain growing with sprouts of ideas" style={{width:"100%",maxWidth:400,height:"auto"}}>
+    <circle cx="160" cy="140" r="124" fill="#D6E7DA"/>
+    <path d="M160 70c-30-14-62 8-52 38-22 10-18 44 6 50-4 28 28 44 46 26 18 18 50 2 46-26 24-6 28-40 6-50 10-30-22-52-52-38z" fill="#F2B8A2" stroke="#12352B" strokeWidth="4" strokeLinejoin="round"/>
+    <path d="M160 74v108M130 112c14 4 20 14 30 14M190 112c-14 4-20 14-30 14M126 152c12-2 22 6 34 6" stroke="#12352B" strokeWidth="3" fill="none" strokeLinecap="round" opacity=".55"/>
+    {[[100,60,"#D9A94A"],[224,56,"#A99BDB"],[250,150,"#7FB3D5"],[70,150,"#D9A94A"]].map(([x,y,c],i)=>(
+      <g key={i} style={{transformOrigin:`${x}px ${y}px`,animation:`float ${4+i}s ease-in-out infinite`}}><circle cx={x} cy={y} r="11" fill={c}/><path d={`M${x} ${y-4}l2 5 5 .5-4 3 1.5 5-4.5-3-4.5 3 1.5-5-4-3 5-.5z`} fill="#fff"/></g>))}
+  </svg>
+);
+
+const Why = () => (
+  <section id="why" className="sec tint"><div className="w two">
+    <div>
+      <h2>Their Little Minds Are Learning More Than You Think.</h2>
+      <p className="lede">Between the ages of 2 and 5, children are constantly discovering how the world works. Every question they ask, pattern they recognise, story they remember and problem they solve gives them an opportunity to practise important thinking and learning skills.</p>
+      <p>Early childhood is an important period of development, and everyday play, conversation and exploration are wonderful, natural ways to practise these abilities.</p>
+    </div>
+    <div style={{display:"grid",placeItems:"center"}}><Brain/></div>
+  </div></section>
+);
+
+const Abilities = () => {
+  const [sel, setSel] = useState(null);
+  const rel = sel === null ? [] : ABILITIES[sel][4];
+  return (
+    <section id="abilities" className="sec"><div className="w">
+      <h2 style={{maxWidth:"20ch"}}>12 Little Abilities. A World of Possibilities.</h2>
+      <p className="lede">Intelligence isn’t just about remembering things or solving puzzles. Growing children use many different abilities to understand, explore and interact with the world around them.</p>
+      <p className="note">These abilities overlap and support one another. Tap a card to see which ones often work together.</p>
+      <div className={"grid" + (sel !== null ? " dim" : "")} role="list">
+        {ABILITIES.map(([t, ic, d, c], i) => (
+          <button key={t} role="listitem" aria-pressed={sel === i} onClick={() => setSel(sel === i ? null : i)}
+            className={"ab" + (sel === i || rel.includes(i) ? " rel" : "")} style={{ background: `var(--${c})` }}>
+            <span className="ic" aria-hidden="true">{ic}</span>
+            <span>
+              <span className="t">{t}</span><span className="d">{d}</span>
+              {sel === i && <span className="more">Works closely with: {rel.map(r => ABILITIES[r][0]).join(", ")}</span>}
+            </span>
+          </button>))}
+      </div>
+    </div></section>
+  );
+};
+
+const Explore = () => (
+  <section className="sec tint"><div className="w">
+    <h2 style={{maxWidth:"22ch"}}>Children Don’t Need More Screens. They Need More Opportunities to Explore.</h2>
+    <p className="lede">Children develop through everyday experiences. When we make time for conversations, imaginative play, movement, puzzles and exploration, we give them opportunities to practise important life skills.</p>
+    <div className="play">{PLAY.map(([e, t]) => <div className="pc" key={t}><b aria-hidden="true">{e}</b><span>{t}</span></div>)}</div>
+  </div></section>
+);
+
+const Intro = () => (
+  <section className="sec"><div className="w two">
+    <div>
+      <h2>You Don’t Have to Figure It All Out. We’ve Got a Plan.</h2>
+      <p className="lede">We understand that parenting is already a full-time responsibility.</p>
+      <p>You want to support your child’s development, but finding the right activities every day, knowing what to do and keeping things age-appropriate can be overwhelming.</p>
+      <p>That’s exactly why we created Lil Think. We’ve organised a simple daily activity plan designed around important developmental abilities. Every day, we’ll send you a fun activity directly to your email.</p>
+      <p style={{color:"var(--ink)",fontWeight:600}}>No complicated preparation. No expensive toys. No hours spent searching the internet. Just simple, meaningful moments of play with your child.</p>
+    </div>
+    <div className="art" style={{animationDelay:"-3s"}}><HeroArt/></div>
+  </div></section>
+);
+
+const How = () => (
+  <section id="how" className="sec tint"><div className="w">
+    <h2 style={{maxWidth:"18ch"}}>Three Simple Steps. That’s All It Takes.</h2>
+    <ol className="steps">
+      {STEPS.map(([t, d, c], i) => <li key={t} className="st" style={{ background: `var(--${c})` }}><div className="n">{i + 1}</div><h3>{t}</h3><p>{d}</p></li>)}
+    </ol>
+    <div className="mail" role="img" aria-label="Sample daily activity email: The Hidden Toy Game, practising memory">
+      <div className="mh">From: <b>Lil Think</b><br/>Subject: <b>Today’s play: The Hidden Toy Game 🧸</b></div>
+      <div className="mbd">
+        <span className="tag">Memory</span><span className="tag" style={{background:"var(--y)"}}>Ages 2–5</span><span className="tag" style={{background:"var(--m)"}}>10 min</span>
+        <p style={{color:"var(--ink)"}}><b>You’ll need:</b> a small toy and three cups.</p>
+        <p><b>How to play:</b> Show your child the toy, hide it under one cup, then slide the cups around slowly. Ask, “Where did it go?” Take turns hiding it!</p>
+        <p style={{margin:0}}><b>Talk about it:</b> “What do you remember?”</p>
+      </div>
+    </div>
+    <p className="note" style={{textAlign:"center",margin:"16px auto 0"}}>A sample of what lands in your inbox.</p>
+  </div></section>
+);
+
+const Reassure = () => (
+  <section className="sec"><div className="w"><div className="warm">
+    <h2>Don’t Worry About What to Teach. Just Enjoy Watching Them Grow.</h2>
+    <p>You don’t need to be an early-childhood expert. You don’t need to buy expensive learning materials. And you don’t need to spend hours planning activities.</p>
+    <p>We’ve already organised the plan. We’ll bring a fresh, practical activity to your inbox every day. All you need to do is spend a little time with your child, follow the simple instructions and enjoy learning together.</p>
+    <p className="quote">Small moments. Meaningful memories. Beautiful discoveries.</p>
+    <a className="btn gold" href="#join" onClick={go("join")}>Get My Free Daily Activities</a>
+  </div></div></section>
+);
+
+const SignupForm = () => {
+  const [email, setEmail] = useState("");
+  const [state, setState] = useState("idle"); // idle | loading | success | error
+  const [msg, setMsg] = useState("");
+  const submit = async e => {
+    e.preventDefault();
+    if (state === "loading") return;
+    setState("loading"); setMsg("");
+    const r = await subscribe(email);
+    if (r.ok) setState("success"); else { setState("error"); setMsg(r.error); }
+  };
+  if (state === "success") return (
+    <div className="ok" role="status"><div className="big" aria-hidden="true">🎉</div>
+      <h2 style={{fontSize:"clamp(1.7rem,6vw,2.2rem)"}}>You’re In! Welcome to Lil Think.</h2>
+      <p>Your little journey of discovery starts soon. Keep an eye on your inbox!</p></div>);
+  return (
+    <form onSubmit={submit} noValidate>
+      <div className="f">
+        <label htmlFor="email" className="sr">Email address</label>
+        <input id="email" type="email" inputMode="email" autoComplete="email" autoCapitalize="none" placeholder="Enter your email address"
+          value={email} onChange={e => setEmail(e.target.value)} aria-invalid={state === "error"} aria-describedby="err"/>
+        <button className="btn" disabled={state === "loading"}>{state === "loading" ? <><span className="sp" aria-hidden="true"/>Subscribing…</> : "Subscribe for Free"}</button>
+      </div>
+      <p id="err" className="err" role="alert">{msg}</p>
+      <p className="fine">{CONSENT_TEXT}</p>
+    </form>);
+};
+
+const Join = () => (
+  <section id="join" className="sec tint"><div className="w"><div className="signup">
+    <h2>Let’s Make Every Day a Little More Meaningful.</h2>
+    <p>Join Lil Think and start receiving fun, play-based daily activities for your little one.</p>
+    <SignupForm/>
+  </div></div></section>
+);
+
+const Footer = () => (
+  <footer><div className="w fg">
+    <div><Logo/><p style={{marginTop:10}}>Little Minds. Big Discoveries.</p><p className="fine">© {new Date().getFullYear()} Lil Think. All rights reserved.</p></div>
+    <nav className="fl" aria-label="Footer">
+      <div><a href="#home" onClick={go("home")}>Home</a><a href="#why" onClick={go("why")}>Why It Matters</a><a href="#abilities" onClick={go("abilities")}>What We Develop</a><a href="#how" onClick={go("how")}>How It Works</a></div>
+      <div><a href="#privacy" onClick={e => e.preventDefault()}>Privacy Policy</a><a href="mailto:hello@lilthink.com">Contact Us</a></div>
+    </nav>
+  </div></footer>
+);
+
+/* Mobile-only floating button: appears after the hero, hides once the signup section is on screen */
+const StickyCta = () => {
+  const [show, setShow] = useState(false);
+  useEffect(() => {
+    const vis = { home: true, join: false };
+    const io = new IntersectionObserver(es => {
+      es.forEach(e => { vis[e.target.id] = e.isIntersecting; });
+      setShow(!vis.home && !vis.join);
+    });
+    ["home", "join"].forEach(id => { const el = document.getElementById(id); if (el) io.observe(el); });
+    return () => io.disconnect();
+  }, []);
+  return <a className={"sticky" + (show ? " on" : "")} href="#join" onClick={go("join")} tabIndex={show ? 0 : -1} aria-hidden={!show}>Get Free Daily Activities</a>;
+};
+
+const App = () => <><Header/><main><Hero/><Why/><Abilities/><Explore/><Intro/><How/><Reassure/><Join/></main><Footer/><StickyCta/></>;
+ReactDOM.createRoot(document.getElementById("root")).render(<App/>);
+</script>
+</body>
+</html>
