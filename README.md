@@ -1,15 +1,17 @@
 # Lil Think: deploy notes
 
-Files: `index.html` (the site) · `api/subscribe.js` (sends the welcome email via Resend) · `api/_welcome.js` (email content) · `.env.example`
+Files: `src/index.html` (page head and styles) · `src/app.jsx` (page content) · `public/` (robots.txt, sitemap, icons, share image) · `build.mjs` (builds the site into `dist/`) · `api/subscribe.js` (signup) · `api/_welcome.js` (email content) · `.env.example`
+
+To change the site, edit `src/` and push; the host runs `npm run build`. To preview locally: `npm install && npm run build`, then serve `dist/` with any static server.
 
 ## Deploy on Vercel (simplest)
-1. Put this folder in a GitHub repo (or run `npx vercel` inside it), import it into Vercel and add your domain.
+1. Put this folder in a GitHub repo (or run `npx vercel` inside it), import it into Vercel and add your domain. Set Build Command to `npm run build` and Output Directory to `dist`.
 2. In Vercel > Settings > Environment Variables, add the values from `.env.example`.
    `RESEND_API_KEY` = create one in Resend > API Keys with **Full access** (the signup saves a contact as well as sending email, which a "Sending access" key cannot do).
 3. Redeploy, then subscribe with your own email to test.
 
 ## Deploy on Netlify instead
-1. Put this folder in a GitHub repo, then Netlify > Add new site > Import from Git. No build command needed (`netlify.toml` is included).
+1. Put this folder in a GitHub repo, then Netlify > Add new site > Import from Git. The build settings are already in `netlify.toml`.
 2. Site configuration > Environment variables: add the values from `.env.example`.
 3. Deploy, add your domain, then subscribe with your own email to test.
 
@@ -29,6 +31,10 @@ If a row does not appear, look at the signup response (browser dev tools > Netwo
 - `sheet: "added"` but no row where you look: the script is writing to a different tab; set `SHEET_GID` to the number after `gid=` in the tab's URL.
 
 Subscribing again with an email that is already a contact adds its missing row, without a second welcome email.
+
+## Search engines
+The build writes the full page content into the HTML, so crawlers do not need to run JavaScript. The title, description and sharing tags are in `src/index.html`; `public/sitemap.xml` lists the pages (add a line for every new page).
+After deploying: add `lilthink.com` in [Google Search Console](https://search.google.com/search-console), submit `https://lilthink.com/sitemap.xml`, and use URL Inspection > Request indexing on the home page.
 
 ## Before going live
 - Resend: your domain `lilthink.com` must show **Verified**, and `FROM_EMAIL` must use it.
