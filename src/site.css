@@ -1,34 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#12352B">
-<meta name="color-scheme" content="light">
-<title>Free Daily Activities for Toddlers &amp; Preschoolers | Lil Think</title>
-<meta name="description" content="Get one free, play-based learning activity for your 2–5 year old in your inbox every day. 10–15 minutes, no special toys, built around 12 early thinking skills.">
-<link rel="canonical" href="https://lilthink.com/">
-<meta name="robots" content="index,follow,max-image-preview:large">
-<link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="Lil Think">
-<meta property="og:url" content="https://lilthink.com/">
-<meta property="og:title" content="Free Daily Activities for Toddlers &amp; Preschoolers | Lil Think">
-<meta property="og:description" content="One free, play-based learning activity for your 2–5 year old, in your inbox every day. 10–15 minutes, no special toys.">
-<meta property="og:image" content="https://lilthink.com/og.png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Lil Think: free daily play activities for children aged 2 to 5">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Free Daily Activities for Toddlers &amp; Preschoolers | Lil Think">
-<meta name="twitter:description" content="One free, play-based learning activity for your 2–5 year old, in your inbox every day.">
-<meta name="twitter:image" content="https://lilthink.com/og.png">
-<script type="application/ld+json">__JSONLD__</script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
-<style>
 :root{
   --bg:#FBF8F2;--bg2:#F3EDE0;--card:#fff;
   --ink:#12352B;--mute:#4A5F56;--line:rgba(18,53,43,.13);
@@ -141,6 +110,12 @@ nav.top{display:flex;align-items:center;justify-content:space-between;height:64p
 .sp{width:16px;height:16px;border:3px solid rgba(255,255,255,.4);border-top-color:#fff;border-radius:50%;display:inline-block;animation:r .8s linear infinite}
 @keyframes r{to{transform:rotate(360deg)}}
 
+/* play zone teaser */
+.pz{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.pz div{border-radius:var(--r);padding:24px 18px;display:grid;gap:10px;justify-items:center;text-align:center;color:var(--on)}
+.pz b{font-size:2.2rem;line-height:1;font-weight:400}
+.pz span{font:600 1.05rem/1.2 Fraunces,Georgia,serif}
+
 /* faq */
 .faq{max-width:780px;margin:36px auto 0;display:grid;gap:12px}
 .faq details{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:0 22px}
@@ -208,12 +183,3 @@ footer a:not(.logo):hover{color:var(--ink);text-decoration:underline}
   .mh{padding:12px 18px}
 }
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
-</style>
-</head>
-<body>
-<div id="root"><!--APP--></div>
-<script defer src="https://cdnjs.cloudflare.com/ajax/libs/react/18.3.1/umd/react.production.min.js"></script>
-<script defer src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.3.1/umd/react-dom.production.min.js"></script>
-<script defer src="/app.js?v=__HASH__"></script>
-</body>
-</html>

@@ -1,8 +1,16 @@
 # Lil Think: deploy notes
 
-Files: `src/index.html` (page head and styles) · `src/app.jsx` (page content) · `public/` (robots.txt, sitemap, icons, share image) · `build.mjs` (builds the site into `dist/`) · `api/subscribe.js` (signup) · `api/_welcome.js` (email content) · `.env.example`
+Files:
+- `src/page.html` (shared page head) · `src/site.css` (styles) · `src/home.jsx` (home page content)
+- `src/games/` (the Play Zone: `index.jsx` lists the games, one file per game) · `src/games.css`
+- `src/pages.jsx` (the list of pages, with each page's title and description) · `build.mjs` (builds everything into `dist/`)
+- `public/` (robots.txt, icons, share image) · `api/subscribe.js` (signup) · `api/_welcome.js` (email content) · `.env.example`
 
 To change the site, edit `src/` and push; the host runs `npm run build`. To preview locally: `npm install && npm run build`, then serve `dist/` with any static server.
+
+## Play Zone
+`/games/` is the hub and each game has its own page (`/games/memory-match/` and so on). The games run entirely in the browser: no server calls, no accounts. Stars, the sound setting and the last level are remembered on the device only (browser local storage).
+To add a game: write its `Play` component in `src/games/`, then add an entry to `GAMES` in `src/games/index.jsx`. Its page and sitemap entry are created by the build.
 
 ## Deploy on Vercel (simplest)
 1. Put this folder in a GitHub repo (or run `npx vercel` inside it), import it into Vercel and add your domain. Set Build Command to `npm run build` and Output Directory to `dist`.
@@ -33,7 +41,7 @@ If a row does not appear, look at the signup response (browser dev tools > Netwo
 Subscribing again with an email that is already a contact adds its missing row, without a second welcome email.
 
 ## Search engines
-The build writes the full page content into the HTML, so crawlers do not need to run JavaScript. The title, description and sharing tags are in `src/index.html`; `public/sitemap.xml` lists the pages (add a line for every new page).
+The build writes the full page content into the HTML, so crawlers do not need to run JavaScript. The sharing tags are in `src/page.html`; titles and descriptions for each page are in `src/pages.jsx`, and the build writes `sitemap.xml` from that list.
 After deploying: add `lilthink.com` in [Google Search Console](https://search.google.com/search-console), submit `https://lilthink.com/sitemap.xml`, and use URL Inspection > Request indexing on the home page.
 
 ## Before going live

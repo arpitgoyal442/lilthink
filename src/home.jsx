@@ -75,6 +75,7 @@ const Header = () => {
         <a href="#why" onClick={nav("why")}>Why It Matters</a>
         <a href="#abilities" onClick={nav("abilities")}>What We Develop</a>
         <a href="#how" onClick={nav("how")}>How It Works</a>
+        <a href="/games/">Play Zone</a>
         <a className="btn sm" href="#join" onClick={nav("join")}>Subscribe Free</a>
       </div>
     </nav></div></header>
@@ -207,6 +208,21 @@ const Reassure = () => (
   </div></div></section>
 );
 
+const PlayZone = () => (
+  <section id="play" className="sec tint"><div className="w two">
+    <div>
+      <h2>New: The Play Zone.</h2>
+      <p className="lede">Four quick thinking games to play together, right in your browser. Each one takes about two minutes and ends with an idea to try away from the screen.</p>
+      <div className="cta"><a className="btn" href="/games/">Open the Play Zone</a></div>
+      <p className="note">Free. No sign-up, no ads, nothing to download.</p>
+    </div>
+    <div className="pz" aria-hidden="true">
+      {[["🃏","Match the Pairs","y"],["🔍","Odd One Out","m"],["🔷","What Comes Next?","s"],["😊","How Do They Feel?","p"]].map(([e, t, c]) =>
+        <div key={t} style={{ background: `var(--${c})` }}><b>{e}</b><span>{t}</span></div>)}
+    </div>
+  </div></section>
+);
+
 const Faq = () => (
   <section id="faq" className="sec"><div className="w">
     <h2 style={{textAlign:"center",margin:"0 auto"}}>Questions Parents Ask.</h2>
@@ -256,7 +272,7 @@ const Footer = () => (
   <footer><div className="w fg">
     <div><Logo/><p style={{marginTop:10}}>Little Minds. Big Discoveries.</p><p className="fine">© {new Date().getFullYear()} Lil Think. All rights reserved.</p></div>
     <nav className="fl" aria-label="Footer">
-      <div><a href="#home" onClick={go("home")}>Home</a><a href="#why" onClick={go("why")}>Why It Matters</a><a href="#abilities" onClick={go("abilities")}>What We Develop</a><a href="#how" onClick={go("how")}>How It Works</a></div>
+      <div><a href="#home" onClick={go("home")}>Home</a><a href="#why" onClick={go("why")}>Why It Matters</a><a href="#abilities" onClick={go("abilities")}>What We Develop</a><a href="#how" onClick={go("how")}>How It Works</a><a href="/games/">Play Zone</a></div>
       <div><a href="#privacy" onClick={e => e.preventDefault()}>Privacy Policy</a><a href="mailto:hello@lilthink.com">Contact Us</a></div>
     </nav>
   </div></footer>
@@ -277,7 +293,6 @@ const StickyCta = () => {
   return <a className={"sticky" + (show ? " on" : "")} href="#join" onClick={go("join")} tabIndex={show ? 0 : -1} aria-hidden={!show}>Get Free Daily Activities</a>;
 };
 
-const App = () => <><Header/><main><Hero/><Why/><Abilities/><Explore/><Intro/><How/><Reassure/><Faq/><Join/></main><Footer/><StickyCta/></>;
-// The page HTML is rendered ahead of time by build.mjs (so search engines and slow phones get real content
-// straight away); in the browser React attaches to that HTML instead of drawing it again.
-if (typeof document !== "undefined") ReactDOM.hydrateRoot(document.getElementById("root"), <App/>);
+const App = () => <><Header/><main><Hero/><Why/><Abilities/><Explore/><Intro/><How/><Reassure/><PlayZone/><Faq/><Join/></main><Footer/><StickyCta/></>;
+
+export default App;

@@ -8,8 +8,8 @@
   # RESEND_API_KEY and N8N_WEBHOOK_SECRET are deliberately NOT listed, so they stay protected by the scan.
   SECRETS_SCAN_OMIT_KEYS = "ALLOWED_ORIGINS,FROM_EMAIL,REPLY_TO"
 
-# app.js is requested with a version in its address, so browsers can keep it for a long time.
+# Script files have a fingerprint in their name, so browsers can keep them for a long time.
 [[headers]]
-  for = "/app.js"
+  for = "/assets/*"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
