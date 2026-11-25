@@ -1,7 +1,7 @@
 # Lil Think: deploy notes
 
 Files:
-- `src/page.html` (shared page head) · `src/site.css` (styles) · `src/home.jsx` (home page content)
+- `src/page.html` (shared page head) · `src/site.css` (styles) · `src/home.jsx` (home page content) · `src/icons.jsx` (the icon set used instead of emoji)
 - `src/games/` (the Play Zone: `index.jsx` lists the games, one file per game) · `src/games.css`
 - `src/pages.jsx` (the list of pages, with each page's title and description) · `build.mjs` (builds everything into `dist/`)
 - `public/` (robots.txt, icons, share image) · `api/subscribe.js` (signup) · `api/_welcome.js` (email content) · `.env.example`

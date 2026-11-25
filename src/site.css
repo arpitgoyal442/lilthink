@@ -20,7 +20,7 @@ a{color:inherit}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .w{max-width:1120px;margin:0 auto;padding:0 var(--gut)}
 .sec{padding:96px 0}
-.tint{background:var(--bg2)}
+.tint{background:var(--bg2);position:relative}
 .lede{font-size:1.15rem;margin-top:20px}
 .note{font-size:.92rem}
 
@@ -58,7 +58,7 @@ nav.top{display:flex;align-items:center;justify-content:space-between;height:64p
 /* abilities */
 .grid{display:grid;gap:16px;grid-template-columns:repeat(4,1fr);margin-top:40px}
 .ab{display:flex;flex-direction:column;gap:14px;text-align:left;border:2px solid transparent;border-radius:var(--r);padding:24px;color:var(--on);cursor:pointer;font:inherit;line-height:1.5;transition:transform .2s,box-shadow .2s,opacity .25s,border-color .2s;box-shadow:0 1px 0 rgba(18,53,43,.06),0 14px 28px -20px rgba(18,53,43,.5);-webkit-tap-highlight-color:transparent}
-.ab .ic{font-size:1.7rem;width:54px;height:54px;flex:none;border-radius:18px;background:rgba(255,255,255,.72);display:grid;place-items:center}
+.ab .ic{width:54px;height:54px;flex:none;border-radius:18px;background:rgba(255,255,255,.72);display:grid;place-items:center}
 .ab .t{display:block;font:600 1.15rem/1.2 Fraunces,serif}
 .ab .d{display:block;margin-top:8px;font-size:.95rem;color:var(--on2)}
 .ab .more{display:block;margin-top:12px;padding-top:10px;border-top:1px solid rgba(18,53,43,.18);font-size:.88rem;font-weight:600;color:var(--on)}
@@ -68,8 +68,8 @@ nav.top{display:flex;align-items:center;justify-content:space-between;height:64p
 
 /* everyday play */
 .play{display:grid;gap:14px;grid-template-columns:repeat(3,1fr);margin-top:40px}
-.pc{background:var(--card);border-radius:22px;padding:22px;box-shadow:0 14px 28px -22px rgba(18,53,43,.55);border:1px solid var(--line);display:flex;gap:16px;align-items:center}
-.pc b{font-size:1.6rem;width:48px;height:48px;border-radius:15px;background:var(--bg2);display:grid;place-items:center;flex:none;font-weight:400}
+.pc{transition:transform .2s;background:var(--card);border-radius:22px;padding:22px;box-shadow:0 14px 28px -22px rgba(18,53,43,.55);border:1px solid var(--line);display:flex;gap:16px;align-items:center}
+.pc b{width:48px;height:48px;border-radius:15px;background:var(--bg2);display:grid;place-items:center;flex:none;font-weight:400}
 .pc span{color:var(--ink);font-weight:500;line-height:1.4}
 
 /* steps */
@@ -77,8 +77,8 @@ nav.top{display:flex;align-items:center;justify-content:space-between;height:64p
 .st{border-radius:var(--r);padding:28px;color:var(--on)}
 .st p{color:var(--on2);margin:10px 0 0}
 .st .n{width:40px;height:40px;border-radius:50%;background:var(--g);color:#FBF3E2;display:grid;place-items:center;font:700 1rem Fraunces,serif;margin-bottom:16px}
-.mail{background:var(--card);border-radius:24px;box-shadow:0 30px 56px -30px rgba(18,53,43,.55);max-width:580px;margin:0 auto;overflow:hidden;border:1px solid var(--line)}
-.mh{padding:14px 22px;background:var(--bg2);font-size:.86rem;color:var(--mute);border-bottom:1px solid var(--line);line-height:1.6}
+.mail{background:var(--card);border-radius:24px;box-shadow:0 30px 56px -30px rgba(18,53,43,.55);overflow:hidden;border:1px solid var(--line);display:grid}
+.mh{padding:14px 22px;background:var(--bg2);font-size:.86rem;color:var(--mute);border-bottom:1px solid var(--line);line-height:1.6;display:flex;justify-content:space-between;align-items:center;gap:14px}
 .mh b{color:var(--ink)}
 .mbd{padding:22px}
 .mbd p{margin:0 0 .75em}
@@ -106,14 +106,15 @@ nav.top{display:flex;align-items:center;justify-content:space-between;height:64p
 .signup .fine{margin:6px auto 0}
 .fine{font-size:.82rem}
 .ok{padding:8px 0}
-.ok .big{font-size:3rem;line-height:1.2}
+.ok{position:relative}
+.ok .big{display:grid;justify-items:center;margin-bottom:6px;animation:pop .7s cubic-bezier(.3,1.5,.5,1) both}
 .sp{width:16px;height:16px;border:3px solid rgba(255,255,255,.4);border-top-color:#fff;border-radius:50%;display:inline-block;animation:r .8s linear infinite}
 @keyframes r{to{transform:rotate(360deg)}}
 
 /* play zone teaser */
 .pz{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 .pz div{border-radius:var(--r);padding:24px 18px;display:grid;gap:10px;justify-items:center;text-align:center;color:var(--on)}
-.pz b{font-size:2.2rem;line-height:1;font-weight:400}
+.pz b{line-height:1;font-weight:400}
 .pz span{font:600 1.05rem/1.2 Fraunces,Georgia,serif}
 
 /* faq */
@@ -166,7 +167,8 @@ footer a:not(.logo):hover{color:var(--ink);text-decoration:underline}
   .art{padding:14px;max-width:340px}
   .grid{grid-template-columns:1fr;gap:12px;margin-top:30px}
   .ab{flex-direction:row;align-items:flex-start;gap:16px;padding:18px}
-  .ab .ic{width:48px;height:48px;font-size:1.5rem;border-radius:16px}
+  .ab .ic{width:48px;height:48px;border-radius:16px}
+  .ab .ic .icn{width:30px;height:30px}
   .ab .d{margin-top:4px}
   .play{margin-top:28px;gap:10px}
   .pc{padding:16px}
@@ -182,4 +184,111 @@ footer a:not(.logo):hover{color:var(--ink);text-decoration:underline}
   .mbd{padding:18px}
   .mh{padding:12px 18px}
 }
-@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+
+/* ───────── Life: waves, moving illustrations, reveals and small rewards ───────── */
+.icn{display:block;flex:none}
+
+/* soft wavy edge above and below every tinted band */
+.tint::before,.tint::after{content:"";position:absolute;left:0;right:0;height:clamp(22px,4.2vw,58px);pointer-events:none;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 60' preserveAspectRatio='none'%3E%3Cpath fill='%23F3EDE0' d='M0 60V30C180 0 360 0 540 24S900 56 1080 30s240-26 360-4v34z'/%3E%3C/svg%3E") center/100% 100% no-repeat}
+.tint::before{bottom:calc(100% - 1px)}
+.tint::after{top:calc(100% - 1px);transform:scale(-1,-1)}
+main:has(>.tint:last-child)+footer{border-top:0;padding-top:clamp(64px,9vw,108px)}
+
+/* the hero arrives */
+.hero>div:first-child>*{animation:up .8s cubic-bezier(.2,.8,.2,1) both}
+.hero>div:first-child>:nth-child(2){animation-delay:.1s}
+.hero>div:first-child>:nth-child(3){animation-delay:.2s}
+.hero>div:first-child>:nth-child(4){animation-delay:.3s}
+.hero .art{animation:float 8s ease-in-out infinite,fade 1s .1s both}
+.art.alt{background:radial-gradient(circle at 70% 20%,var(--s),var(--m) 75%);border-radius:52% 48% 44% 56%/46% 54% 46% 54%}
+@keyframes up{from{opacity:0;transform:translateY(22px)}}
+@keyframes fade{from{opacity:0}}
+
+/* moving parts of the illustrations (each turns around its own centre) */
+.rays,.tw,.spk,.pulse,.blinks,.nod,.wig,.tick,.flo,.sway,.hrt,.blk{transform-box:fill-box;transform-origin:center}
+.rays{animation:spin 28s linear infinite}
+.pulse{animation:pulse 4s ease-in-out infinite}
+.tw{animation:tw 3.6s ease-in-out infinite}
+.spk{animation:spk 3.4s ease-in-out infinite}
+.blinks{animation:blink 4.6s infinite}
+.nod{transform-origin:50% 100%;animation:nod 5s ease-in-out infinite}
+.nod.kid{animation:nodk 3.6s ease-in-out -1s infinite}
+.wig{transform-origin:50% 100%;animation:rock 5s ease-in-out infinite}
+.blk{animation:drop .8s cubic-bezier(.3,1.35,.5,1) both}
+.b1{animation-delay:.4s}.b2{animation-delay:.75s}.b3{animation-delay:1.1s}
+.flo{animation:drift 6s ease-in-out infinite}
+.sway{transform-origin:60% 65%;animation:sway 6s ease-in-out infinite}
+.tick{animation:tick 7s infinite both}
+.rise{animation:rise 5s ease-in-out infinite}
+.hrt{animation:beat 2.4s ease-in-out infinite}
+.dash{animation:dash 1.4s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes pulse{50%{transform:scale(1.05)}}
+@keyframes tw{50%{transform:rotate(14deg) scale(1.12)}}
+@keyframes spk{0%,100%{transform:scale(0) rotate(0);opacity:0}50%{transform:scale(1) rotate(45deg);opacity:1}}
+@keyframes blink{0%,93%,100%{transform:scaleY(1)}96.5%{transform:scaleY(.1)}}
+@keyframes nod{50%{transform:rotate(2.5deg)}}
+@keyframes nodk{50%{transform:rotate(-4deg)}}
+@keyframes rock{20%{transform:rotate(-5deg)}40%{transform:rotate(4deg)}60%,100%{transform:none}}
+@keyframes drop{from{opacity:0;transform:translateY(-190px) rotate(-10deg)}}
+@keyframes drift{50%{transform:translateY(-10px) rotate(5deg)}}
+@keyframes sway{50%{transform:rotate(6deg) translateY(-6px)}}
+@keyframes tick{0%{opacity:0;transform:scale(0)}7%{opacity:1;transform:scale(1.25)}12%,82%{opacity:1;transform:scale(1)}92%,100%{opacity:0;transform:scale(.6)}}
+@keyframes rise{50%{transform:translateY(-14px)}}
+@keyframes beat{15%{transform:scale(1.18)}30%{transform:scale(1)}45%{transform:scale(1.12)}60%,100%{transform:scale(1)}}
+@keyframes dash{to{stroke-dashoffset:-14}}
+
+/* shapes in the empty corners, wide screens only */
+.dw{position:relative;z-index:0}
+.deco{position:absolute;z-index:-1;pointer-events:none;display:none}
+.deco svg{display:block;width:100%;height:auto;overflow:visible}
+@media (min-width:1024px){
+  .deco{display:block}
+  .d-shapes{top:-18px;right:var(--gut);width:min(300px,26vw)}
+  .d-kite{top:-44px;right:calc(var(--gut) + 24px);width:min(270px,24vw)}
+  .d-plane{top:-34px;right:var(--gut);width:min(330px,30vw)}
+  .d-askL{top:-34px;left:var(--gut);width:150px}
+  .d-askR{top:-22px;right:var(--gut);width:150px}
+  .d-joinL,.d-joinR{display:none;top:50%;width:150px;margin-top:-104px}
+  .d-joinL{left:var(--gut)}.d-joinR{right:var(--gut)}
+}
+@media (min-width:1180px){.d-joinL,.d-joinR{display:block}}
+
+/* sample week of emails */
+.week{max-width:580px;margin:0 auto}
+.days{display:flex;justify-content:center;gap:8px;margin-bottom:16px}
+.day{position:relative;overflow:hidden;flex:0 1 72px;min-height:44px;padding:8px 6px;border-radius:999px;border:2px solid var(--line);background:var(--card);color:var(--ink);font:700 .92rem Figtree,sans-serif;cursor:pointer;transition:background .25s,color .25s,border-color .25s,transform .2s;-webkit-tap-highlight-color:transparent}
+.day[aria-pressed=true]{background:var(--g);border-color:var(--g);color:#FBF3E2}
+.day::after{content:"";position:absolute;left:0;right:0;bottom:0;height:4px;background:var(--gold);transform:scaleX(0);transform-origin:left}
+.run .day[aria-pressed=true]::after{animation:dayfill 5.5s linear forwards}
+.week:focus-within .day::after{animation-play-state:paused}
+@keyframes dayfill{to{transform:scaleX(1)}}
+.mp{grid-area:1/1;min-width:0;visibility:hidden;opacity:0;transform:translateY(10px);transition:opacity .4s,transform .4s,visibility 0s .4s}
+.mp.on{visibility:visible;opacity:1;transform:none;transition-delay:0s}
+.mi{flex:none;width:46px;height:46px;border-radius:15px;background:var(--card);display:grid;place-items:center}
+
+/* small rewards */
+.btn:active{transform:scale(.97)}
+.faq details{transition:box-shadow .25s}
+.faq details[open]{box-shadow:0 18px 34px -26px rgba(18,53,43,.6)}
+.faq details[data-closing] summary::after{transform:none}
+@keyframes wig{25%{transform:rotate(-11deg) scale(1.12)}60%{transform:rotate(9deg) scale(1.12)}}
+@keyframes pop{from{opacity:0;transform:scale(0)}}
+@media (hover:hover){
+  .ab:hover .icn,.pc:hover .icn,.pz div:hover .icn,.logo:hover i{animation:wig .6s ease-in-out}
+  .pc:hover{transform:translateY(-3px)}
+  .day:hover{transform:translateY(-2px)}
+  .week:hover .day::after{animation-play-state:paused}
+}
+.confetti{position:absolute;left:50%;top:44px;width:0;height:0;pointer-events:none}
+.confetti i{position:absolute;left:0;top:0;opacity:0;animation:conf 1.9s cubic-bezier(.15,.6,.3,1) forwards}
+@keyframes conf{0%{opacity:1;transform:translate(0,0) scale(.3)}30%{opacity:1;transform:translate(calc(var(--x)*.75),var(--u)) rotate(calc(var(--r)*.4))}100%{opacity:0;transform:translate(var(--x),240px) rotate(var(--r))}}
+
+/* reveal on scroll: home.jsx marks what is still below the screen as "out", then "in" as it arrives */
+[data-rvs]{transition-property:opacity,transform!important;transition-duration:.75s!important;transition-timing-function:cubic-bezier(.2,.7,.2,1)!important}
+[data-rvs=out]{opacity:0!important;transform:translateY(28px)}
+[data-rvs=out] .n,[data-rvs=out] .ic .icn,[data-rvs=out]>b .icn{transform:scale(0)}
+[data-rvs=in] .n,[data-rvs=in] .ic .icn,[data-rvs=in]>b .icn{animation:pop .6s .25s cubic-bezier(.3,1.5,.5,1) both}
+
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}

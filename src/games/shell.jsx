@@ -1,5 +1,6 @@
 // The frame every game sits in: start screen (pick a level), the game itself, and the finish screen.
 import { saveStars, saveLevel, pick } from "./util.js";
+import { Icon } from "../icons.jsx";
 const { useState, useEffect, useRef } = React;
 
 export const LEVELS = [["easy", "Easy", "Ages 2–3"], ["medium", "Medium", "Ages 3–4"], ["tricky", "Tricky", "Ages 4–5"]];
@@ -61,7 +62,7 @@ export function GameShell({ game, Play }) {
 
       {phase === "start" &&
         <div className="g-start">
-          <div className="g-big" aria-hidden="true">{game.emoji}</div>
+          <div className="g-big"><Icon name={game.icon} size={72}/></div>
           <h1 ref={head} tabIndex={-1}>{game.title}</h1>
           <p className="g-how">{game.how}</p>
           {game.free
