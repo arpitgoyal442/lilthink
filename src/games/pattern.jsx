@@ -3,17 +3,17 @@ import { Quiz } from "./shell.jsx";
 import { shuffle } from "./sound.js";
 const { useState } = React;
 
-const SHAPES = {
+export const SHAPES = {
   circle:   <circle cx="50" cy="50" r="40"/>,
   square:   <rect x="13" y="13" width="74" height="74" rx="12"/>,
   triangle: <path d="M50 12 L90 84 H10 Z" strokeLinejoin="round" strokeWidth="8"/>,
   star:     <path d="M50 8 L61.8 36.6 92 39.4 69 59.6 76 89.5 50 73.5 24 89.5 31 59.6 8 39.4 38.2 36.6 Z" strokeLinejoin="round" strokeWidth="6"/>,
   heart:    <path d="M50 86 C18 62 10 44 10 32 a20 20 0 0 1 40 -6 a20 20 0 0 1 40 6 C90 44 82 62 50 86 Z"/>,
 };
-const COLOURS = [["red", "#E5836F"], ["blue", "#6FA8CF"], ["yellow", "#E3B341"], ["green", "#7DB58C"], ["purple", "#A08FD6"]];
+export const COLOURS = [["red", "#E5836F"], ["blue", "#6FA8CF"], ["yellow", "#E3B341"], ["green", "#7DB58C"], ["purple", "#A08FD6"]];
 
 // Every piece differs from the others in BOTH shape and colour, so the game never depends on telling colours apart.
-const Piece = ({ t }) => <svg viewBox="0 0 100 100" aria-hidden="true"><g fill={t.hex} stroke={t.hex}>{SHAPES[t.shape]}</g></svg>;
+export const Piece = ({ t }) => <svg viewBox="0 0 100 100" aria-hidden="true"><g fill={t.hex} stroke={t.hex}>{SHAPES[t.shape]}</g></svg>;
 
 // Each pattern is the pieces shown (0 = first piece, 1 = second...) and the piece that comes next.
 const PATTERNS = {

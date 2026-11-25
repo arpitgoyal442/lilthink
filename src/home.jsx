@@ -212,12 +212,12 @@ const PlayZone = () => (
   <section id="play" className="sec tint"><div className="w two">
     <div>
       <h2>New: The Play Zone.</h2>
-      <p className="lede">Four quick thinking games to play together, right in your browser. Each one takes about two minutes and ends with an idea to try away from the screen.</p>
+      <p className="lede">Twelve quick thinking games to play together, right in your browser: one for each of the 12 abilities. Each takes about two minutes and ends with an idea to try away from the screen.</p>
       <div className="cta"><a className="btn" href="/games/">Open the Play Zone</a></div>
       <p className="note">Free. No sign-up, no ads, nothing to download.</p>
     </div>
     <div className="pz" aria-hidden="true">
-      {[["🃏","Match the Pairs","y"],["🔍","Odd One Out","m"],["🔷","What Comes Next?","s"],["😊","How Do They Feel?","p"]].map(([e, t, c]) =>
+      {[["🃏","Match the Pairs","y"],["🚦","Red Light, Green Light","m"],["🐰","Get Bunny Home","s"],["🎨","Make a Face","p"]].map(([e, t, c]) =>
         <div key={t} style={{ background: `var(--${c})` }}><b>{e}</b><span>{t}</span></div>)}
     </div>
   </div></section>

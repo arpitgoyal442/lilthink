@@ -37,6 +37,7 @@ export function GameShell({ game, Play }) {
   const [prog, setProg] = useState([0, 0]);
   const [stars, setStars] = useState(0);
   const [tip, setTip] = useState(game.tips[0]);
+  const [keepsake, setKeepsake] = useState(null); // something the child made, shown again on the finish screen
   const [muted, setM] = useState(false);
   const head = useRef(null);
   const first = useRef(true);
@@ -46,7 +47,7 @@ export function GameShell({ game, Play }) {
   useEffect(() => { if (first.current) { first.current = false; return; } head.current && head.current.focus(); }, [phase, run]);
 
   const start = (l) => { sfx.tap(); setLevel(l); saveLevel(l); setProg([0, 0]); setRun(r => r + 1); setPhase("play"); };
-  const done = (s) => { sfx.win(); setStars(s); saveStars(game.id, s); setTip(pick(game.tips)); setPhase("done"); };
+  const done = (s, made = null) => { sfx.win(); setStars(s); setKeepsake(made); saveStars(game.id, s); setTip(pick(game.tips)); setPhase("done"); };
   const report = (n, total) => setProg([n, total]);
   const toggleMute = () => { const m = !muted; setMuted(m); setM(m); if (!m) sfx.tap(); };
   const next = LEVELS[LEVELS.findIndex(l => l[0] === level) + 1];
@@ -56,7 +57,7 @@ export function GameShell({ game, Play }) {
       <div className="g-bar">
         <span className="g-tag" style={{ background: `var(--${game.tint})` }}>{game.ability}</span>
         {phase === "play" && prog[1] > 0 &&
-          <span className="g-dots" role="img" aria-label={`${prog[0]} of ${prog[1]} done`}>
+          <span className={"g-dots" + (prog[1] > 7 ? " many" : "")} role="img" aria-label={`${prog[0]} of ${prog[1]} done`}>
             {Array.from({ length: prog[1] }, (_, i) => <i key={i} className={i < prog[0] ? "on" : ""}/>)}
           </span>}
         <button className="g-mute" aria-pressed={muted} aria-label={muted ? "Turn sound on" : "Turn sound off"} onClick={toggleMute}>{muted ? "🔇" : "🔊"}</button>
@@ -67,10 +68,14 @@ export function GameShell({ game, Play }) {
           <div className="g-big" aria-hidden="true">{game.emoji}</div>
           <h1 ref={head} tabIndex={-1}>{game.title}</h1>
           <p className="g-how">{game.how}</p>
-          <p className="g-pick" id="pick">Choose a level to start:</p>
-          <div className="g-levels" role="group" aria-labelledby="pick">
-            {LEVELS.map(([id, name, ages]) => <button key={id} className="g-level" onClick={() => start(id)}><b>{name}</b><span>{ages}</span></button>)}
-          </div>
+          {game.free
+            ? <button className="btn g-startbtn" onClick={() => start("easy")}>Start</button>
+            : <>
+              <p className="g-pick" id="pick">Choose a level to start:</p>
+              <div className="g-levels" role="group" aria-labelledby="pick">
+                {LEVELS.map(([id, name, ages]) => <button key={id} className="g-level" onClick={() => start(id)}><b>{name}</b><span>{ages}</span></button>)}
+              </div>
+            </>}
         </div>}
 
       {phase === "play" &&
@@ -81,12 +86,13 @@ export function GameShell({ game, Play }) {
 
       {phase === "done" &&
         <div className="g-done">
+          {keepsake && <div className="g-keep">{keepsake}</div>}
           <Stars n={stars}/>
           <h1 ref={head} tabIndex={-1}>{stars === 3 ? "Wonderful!" : stars === 2 ? "Well done!" : "You did it!"}</h1>
           <div className="g-tip"><b>Now try it away from the screen</b><p>{tip}</p></div>
           <div className="g-again">
-            <button className="btn" onClick={() => start(level)}>Play again</button>
-            {next && <button className="btn o" onClick={() => start(next[0])}>Try {next[1]}</button>}
+            <button className="btn" onClick={() => start(level)}>{game.again || "Play again"}</button>
+            {next && !game.free && <button className="btn o" onClick={() => start(next[0])}>Try {next[1]}</button>}
             <a className="btn o" href="/games/">All games</a>
           </div>
           <p className="g-parent">Parents: <a href="/#join">get a new play idea by email every day, free</a>.</p>
@@ -95,7 +101,7 @@ export function GameShell({ game, Play }) {
   );
 }
 
-// A round-by-round "tap the right one" game. Each round: { prompt, say?, choices: [{ key, node, label, correct }], after? }.
+// A round-by-round "tap the right one" game. Each round: { prompt, say?, quiet?, choices: [{ key, node, label, correct }], after? }.
 // A wrong tap wobbles and lets the child try again; there is no timer and nothing is taken away.
 export function Quiz({ rounds, report, done, cls = "" }) {
   const [i, setI] = useState(0);
@@ -106,7 +112,7 @@ export function Quiz({ rounds, report, done, cls = "" }) {
   const r = rounds[i];
 
   useEffect(() => { report(i + (solved ? 1 : 0), rounds.length); }, [i, solved]);
-  useEffect(() => { if (r.say) say(r.say); }, [i]);
+  useEffect(() => { if (r.say && !r.quiet) say(r.say); }, [i]); // quiet: only read aloud when the speaker button is pressed
   useEffect(() => () => clearTimeout(timer.current), []);
 
   const tap = (c) => {

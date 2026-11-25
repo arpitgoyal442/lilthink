@@ -5,6 +5,14 @@ import { MemoryPlay } from "./memory.jsx";
 import { OddPlay } from "./odd.jsx";
 import { PatternPlay } from "./pattern.jsx";
 import { FeelingsPlay } from "./feelings.jsx";
+import { ShadowPlay } from "./shadow.jsx";
+import { LightsPlay } from "./lights.jsx";
+import { RedLightPlay } from "./redlight.jsx";
+import { SwitchPlay } from "./switch.jsx";
+import { StoriesPlay } from "./stories.jsx";
+import { SoundsPlay } from "./sounds.jsx";
+import { BunnyPlay } from "./bunny.jsx";
+import { FacePlay } from "./face.jsx";
 const { useState, useEffect } = React;
 
 // To add a game: write its Play component, then add an entry here. The build makes its page and sitemap entry.
@@ -41,6 +49,70 @@ export const GAMES = [
     parents: "Reading faces and naming feelings is the start of understanding other people. Each question is read aloud, so your child does not need to read. On Tricky, a short story asks them to imagine how someone else feels. Afterwards, ask “when did you feel like that?”",
     tips: ["Make a happy, a sad and a surprised face in the mirror together, and guess each other’s.",
       "At story time, pause on a picture and ask, “How do you think they feel? How can you tell?”"] },
+  { id: "shadow-match", Play: ShadowPlay, emoji: "🧩", tint: "s", title: "Shadow Match", ability: "Spatial Reasoning",
+    blurb: "Look at the picture. Which shadow is the same shape?",
+    how: "Look at the picture at the top, then tap the shadow that has the same shape.",
+    metaTitle: "Shadow Match: Free Shape Matching Game for Toddlers | Lil Think",
+    metaDesc: "A free 2-minute shadow matching game for children aged 2–5. Match each picture to its shadow and practise spatial reasoning. No sign-up, no ads.",
+    parents: "Matching a picture to its shadow means ignoring colour and detail and looking only at the outline. On Tricky the shadows are turned around, so your child has to turn the shape in their head, which is the start of spatial reasoning. Trace the outline with a finger together if they get stuck.",
+    tips: ["On a sunny day or with a torch, make shadows of a spoon, a cup and a toy on the wall. “Which shadow is which?”",
+      "Draw around a few objects on paper, mix the objects up and let your child put each one back on its outline."] },
+  { id: "copy-the-lights", Play: LightsPlay, emoji: "💡", tint: "l", title: "Copy the Lights", ability: "Working Memory",
+    blurb: "Watch the lights, then tap them back in the same order.",
+    how: "The shapes light up one after another. Watch first, then tap them in the same order.",
+    metaTitle: "Copy the Lights: Free Working Memory Game for Kids | Lil Think",
+    metaDesc: "A free 2-minute sequence memory game for children aged 2–5. Watch the lights and repeat the order to practise working memory. No sign-up, no ads.",
+    parents: "Holding a short sequence in mind and then acting on it is working memory, the same skill your child uses to follow “shoes on, then coat, then bag”. Easy starts with just two lights. Saying the colours aloud while watching (“red, blue...”) is a real strategy, not cheating, so encourage it.",
+    tips: ["Clap a short rhythm (clap, clap, tap your knees) and ask your child to copy it. Make it one beat longer each time.",
+      "Give a two-step job, then three: “Touch your nose, then the door, then sit down.” Swap and let your child give you one."] },
+  { id: "red-light-green-light", Play: RedLightPlay, emoji: "🚦", tint: "m", title: "Red Light, Green Light", ability: "Self-Regulation",
+    blurb: "Walk Turtle home on green. Stop and wait on red.",
+    how: "Tap the big button to walk when the light is green. When it turns red, stop and wait!",
+    metaTitle: "Red Light, Green Light: Free Self-Control Game for Kids | Lil Think",
+    metaDesc: "A free 2-minute stop-and-go game for children aged 2–5. Tap on green, wait on red, and practise self-control and patience. No sign-up, no ads.",
+    parents: "Stopping yourself when you want to keep going is one of the hardest things for a young child, and it grows with practice. Here a tap on red only costs one small step back, so the waiting is practised without tears. On Tricky a yellow light also means wait. Praise the waiting, not the speed.",
+    tips: ["Play it for real: your child walks when you say “green light” and freezes on “red light”. Then let them be the light.",
+      "Put on music and dance, and freeze like statues every time it stops."] },
+  { id: "switch-it", Play: SwitchPlay, emoji: "🔄", tint: "y", title: "Switch It!", ability: "Cognitive Flexibility",
+    blurb: "Sort by colour... then the rule changes to shape!",
+    how: "Tap where the piece belongs. First you sort one way, then the rule switches. Watch for the change!",
+    metaTitle: "Switch It! Free Sorting Game for Preschoolers | Lil Think",
+    metaDesc: "A free 2-minute sorting game for children aged 2–5. Sort by colour, then switch to shape, and practise flexible thinking. No sign-up, no ads.",
+    parents: "Sorting by colour is easy. Dropping that rule and sorting the very same pieces by shape is not: young children often keep following the first rule even when they can tell you the new one. That switch is cognitive flexibility. If your child keeps using the old rule, that is normal for this age; say the new rule aloud together before each tap.",
+    tips: ["Sort a pile of socks or blocks by colour. Then mix them up and say, “New rule! Now sort them by size.”",
+      "Play opposites: when you say “day” they say “night”. After a while switch it: now you both say the same word."] },
+  { id: "tiny-stories", Play: StoriesPlay, emoji: "🔗", tint: "p", title: "Tiny Stories", ability: "Logical Thinking",
+    blurb: "Two pictures tell a story. What happens next?",
+    how: "Listen to the little story in two pictures, then tap the picture that shows what happens next.",
+    metaTitle: "Tiny Stories: Free What-Happens-Next Game for Kids | Lil Think",
+    metaDesc: "A free 2-minute sequencing game for children aged 2–5. Two pictures tell a story; choose what happens next and practise cause and effect. No sign-up, no ads.",
+    parents: "Working out what happens next means connecting cause and effect: sun on a snowman, a pin near a balloon, water on a plant. Each story is read aloud. After a right answer, ask “why?” and let your child explain the link in their own words; that explanation is the logical thinking.",
+    tips: ["While cooking or bathing, ask “what will happen if...?” before you do it: “...we put the ice in the warm water?”",
+      "Tell a three-part story about your day with one part missing: “We put our shoes on, then..., then we were at the park.”"] },
+  { id: "first-sounds", Play: SoundsPlay, emoji: "💬", tint: "l", title: "First Sounds", ability: "Language & Communication",
+    blurb: "Listen carefully. Find the word, the first sound or the rhyme.",
+    how: "Listen to the question, then tap the picture that answers it. Tap the speaker to hear it again.",
+    metaTitle: "First Sounds: Free Listening and Rhyming Game for Kids | Lil Think",
+    metaDesc: "A free 2-minute listening game for children aged 2–5. Find the word, match first sounds and spot rhymes to build early language skills. No sign-up, no ads.",
+    parents: "Hearing that “ball” and “banana” start the same way, or that “cat” and “hat” rhyme, is one of the strongest foundations for reading later. Easy is about listening for a word and finding it, Medium matches first sounds and Tricky finds rhymes. Turn the sound on for this one, and say the picture names aloud together before choosing.",
+    tips: ["Play “I spy” with sounds: “I spy something that starts like ball.” Take turns.",
+      "Make silly rhymes with your child’s name or favourite toy: “Teddy, ready, spaghetti!” Real words not required."] },
+  { id: "bunny-home", Play: BunnyPlay, emoji: "🐰", tint: "m", title: "Get Bunny Home", ability: "Problem-Solving",
+    blurb: "Find a path through the garden, around the trees.",
+    how: "Tap the arrows to hop Bunny to the house. Trees are in the way, so you may need to go around!",
+    metaTitle: "Get Bunny Home: Free Maze Game for Preschoolers | Lil Think",
+    metaDesc: "A free 2-minute maze game for children aged 2–5. Guide the bunny home around the trees and practise planning and problem-solving. No sign-up, no ads.",
+    parents: "A blocked path is a small problem to solve: try a way, bump into a tree, think again. That loop is exactly what problem-solving is. Every garden is new each time. Before the first hop, ask “which way do you think will work?” and trace the path with a finger, so your child plans before acting.",
+    tips: ["Build a cushion-and-chair obstacle course and ask your child to find a way from the sofa to the door without touching the floor.",
+      "Draw a simple maze on paper, or use tape on the floor, and take turns guiding a toy through it."] },
+  { id: "make-a-face", Play: FacePlay, emoji: "🎨", tint: "y", title: "Make a Face", ability: "Creativity & Imagination", free: true, again: "Make another",
+    blurb: "Mix hair, eyes, mouths and hats to invent a character.",
+    how: "Choose the skin, hair, eyes, mouth and extras. There is no wrong answer: make anyone you like!",
+    metaTitle: "Make a Face: Free Creative Character Game for Kids | Lil Think",
+    metaDesc: "A free creative game for children aged 2–5. Mix hair, eyes, mouths and hats to invent a character, then tell their story. No sign-up, no ads.",
+    parents: "This one has no right answer, on purpose. Choosing, changing your mind and inventing someone new is creative play, and the real value comes afterwards: ask who the character is, what they like and what happened to them today. Your child’s story matters far more than the picture.",
+    tips: ["Give your character a name. What do they love to eat? Where do they live? Tell the story of their day together.",
+      "Draw your character on paper and add a body, a pet and a house. What is the pet called?"] },
 ];
 
 const Hub = () => {
@@ -50,7 +122,7 @@ const Hub = () => {
     <main>
       <section className="g-hero w">
         <h1>The Play Zone: Little Games for Growing Minds.</h1>
-        <p className="lede">Four quick thinking games for children aged 2–5. Each one takes about two minutes, practises one early ability and ends with an idea to try away from the screen.</p>
+        <p className="lede">Twelve quick thinking games for children aged 2–5, one for each of the 12 abilities little minds are growing. Each takes about two minutes and ends with an idea to try away from the screen.</p>
         <p className="note">Free. No sign-up, no ads. Best played together.</p>
         <div className="g-grid">
           {GAMES.map(g => (
@@ -58,7 +130,7 @@ const Hub = () => {
               <span className="g-ic" aria-hidden="true">{g.emoji}</span>
               <span className="g-ct">{g.title}</span>
               <span className="g-cd">{g.blurb}</span>
-              <span className="g-meta"><span className="g-chip">{g.ability}</span><span className="g-chip">2 min</span>
+              <span className="g-meta"><span className="g-chip">{g.ability}</span><span className="g-chip">{g.free ? "No rules" : "2 min"}</span>
                 {stars[g.id] > 0 && <Stars n={stars[g.id]} label={`Your best: ${stars[g.id]} of 3 stars`}/>}</span>
               <span className="g-go">Play<span aria-hidden="true">→</span></span>
             </a>))}
@@ -83,7 +155,7 @@ const GameView = ({ game }) => (
     <section className="w g-about">
       <h2>For parents: what this game practises</h2>
       <p>{game.parents}</p>
-      <p className="note">Levels: Easy suits most 2–3 year olds, Medium 3–4 and Tricky 4–5, but follow your child, not the label.</p>
+      {!game.free && <p className="note">Levels: Easy suits most 2–3 year olds, Medium 3–4 and Tricky 4–5, but follow your child, not the label.</p>}
       <p className="g-more">More games: {GAMES.filter(g => g.id !== game.id).map((g, i) => <React.Fragment key={g.id}>{i > 0 && " · "}<a href={`/games/${g.id}/`}>{g.title}</a></React.Fragment>)}</p>
     </section>
   </main>

@@ -33,6 +33,7 @@ export const sfx = {
   tap() { tone(520, 0, 0.08, "triangle", 0.1); },
   good() { tone(660, 0, 0.14); tone(880, 0.12, 0.2); },
   bad() { tone(240, 0, 0.18, "sine", 0.1); },
+  note(i) { tone([392, 494, 587, 698, 784][i % 5], 0, 0.32, "triangle", 0.2); }, // one note per pad or light
   win() { [523, 659, 784, 1047].forEach((f, i) => tone(f, i * 0.13, 0.26)); },
 };
 
