@@ -126,14 +126,15 @@ const Hub = () => {
         <p className="note">Free. No sign-up, no ads. Best played together.</p>
         <div className="g-grid">
           {GAMES.map(g => (
-            <a key={g.id} className="g-cardlink" href={`/games/${g.id}/`} style={{ background: `var(--${g.tint})` }}>
+            <div key={g.id} className="g-cardlink" style={{ background: `var(--${g.tint})` }}>
               <span className="g-ic" aria-hidden="true">{g.emoji}</span>
               <span className="g-ct">{g.title}</span>
               <span className="g-cd">{g.blurb}</span>
               <span className="g-meta"><span className="g-chip">{g.ability}</span><span className="g-chip">{g.free ? "No rules" : "2 min"}</span>
                 {stars[g.id] > 0 && <Stars n={stars[g.id]} label={`Your best: ${stars[g.id]} of 3 stars`}/>}</span>
-              <span className="g-go">Play<span aria-hidden="true">→</span></span>
-            </a>))}
+              {/* Only the button is the link, so a tap highlights the button and not the whole card */}
+              <a className="g-go" href={`/games/${g.id}/`} aria-label={`Play ${g.title}`}>Play<span aria-hidden="true">→</span></a>
+            </div>))}
         </div>
       </section>
       <section className="sec tint"><div className="w g-notes">
