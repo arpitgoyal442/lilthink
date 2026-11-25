@@ -1,6 +1,5 @@
 // Copy the Lights: watch the pads light up, then tap them in the same order. Practises working memory.
 import { starsFor } from "./shell.jsx";
-import { sfx } from "./sound.js";
 import { SHAPES } from "./pattern.jsx";
 const { useState, useEffect, useRef } = React;
 
@@ -32,7 +31,7 @@ export function LightsPlay({ level, report, done }) {
   const show = (s) => {
     stop(); setPhase("watch"); setPos(0); setLit(-1);
     s.forEach((p, i) => {
-      later(() => { setLit(p); sfx.note(p); }, 800 + i * plan.gap);
+      later(() => { setLit(p); }, 800 + i * plan.gap);
       later(() => setLit(-1), 800 + i * plan.gap + plan.gap * 0.62);
     });
     later(() => setPhase("turn"), 800 + s.length * plan.gap);
@@ -42,15 +41,14 @@ export function LightsPlay({ level, report, done }) {
   const tap = (p) => {
     if (phase !== "turn") return;
     if (p !== seq[pos]) { // wrong pad: nothing is lost, the same lights are shown again
-      sfx.bad(); clean.current = false; setPhase("oops"); setLit(-1);
+      clean.current = false; setPhase("oops"); setLit(-1);
       later(() => show(seq), 1500);
       return;
     }
-    sfx.note(p); setLit(p); later(() => setLit(-1), 240);
+    setLit(p); later(() => setLit(-1), 240);
     if (pos + 1 < seq.length) { setPos(pos + 1); return; }
     if (clean.current) firstTry.current++;
     setPos(seq.length); setPhase("yay"); report(round + 1, total);
-    later(() => sfx.good(), 300);
     later(() => {
       if (round + 1 === total) { done(starsFor(firstTry.current, total)); return; }
       const next = makeSeq(plan.lens[round + 1], plan.pads);

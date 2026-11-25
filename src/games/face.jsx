@@ -1,6 +1,5 @@
 // Make a Face: build a character from skin, hair, eyes, mouth and extras. There is no right answer.
 // Practises creativity and imagination; the finish screen asks the child to tell the character's story.
-import { sfx } from "./sound.js";
 const { useState } = React;
 
 const ink = "#33231C";
@@ -66,14 +65,14 @@ const TABS = [["skin", "🎨", "Skin", SKIN], ["hair", "💇", "Hair", HAIR], ["
 export function FacePlay({ done }) {
   const [c, setC] = useState(random);
   const [tab, setTab] = useState("skin");
-  const change = (part, i) => { sfx.tap(); setC({ ...c, [part]: i }); };
+  const change = (part, i) => { setC({ ...c, [part]: i }); };
   const [part, , title, list] = TABS.find(t => t[0] === tab);
 
   return (
     <div className="g-face">
       <div className="g-me"><Character c={c} label="Your character"/></div>
       <div className="g-tabs" role="tablist" aria-label="What to change">
-        {TABS.map(([id, icon, name]) => <button key={id} role="tab" aria-selected={tab === id} aria-label={name} className={tab === id ? "on" : ""} onClick={() => { sfx.tap(); setTab(id); }}><span aria-hidden="true">{icon}</span><em>{name}</em></button>)}
+        {TABS.map(([id, icon, name]) => <button key={id} role="tab" aria-selected={tab === id} aria-label={name} className={tab === id ? "on" : ""} onClick={() => { setTab(id); }}><span aria-hidden="true">{icon}</span><em>{name}</em></button>)}
       </div>
       <div className="g-opts" role="group" aria-label={title}>
         {list.map((item, i) => (
@@ -86,7 +85,7 @@ export function FacePlay({ done }) {
           {HAIRC.map((h, i) => <button key={h} className={c.hairc === i ? "on" : ""} aria-pressed={c.hairc === i} aria-label={`hair colour ${i + 1}`} style={{ background: h }} onClick={() => change("hairc", i)}/>)}
         </div>}
       <div className="g-facebtns">
-        <button className="btn o" onClick={() => { sfx.tap(); setC(random()); }}>🎲 Surprise me</button>
+        <button className="btn o" onClick={() => { setC(random()); }}>🎲 Surprise me</button>
         <button className="btn" onClick={() => done(3, <Character c={c} label="The character you made"/>)}>I’m finished!</button>
       </div>
     </div>

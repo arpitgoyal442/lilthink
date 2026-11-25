@@ -1,6 +1,6 @@
 // Shadow Match: which shadow belongs to the picture? Practises spatial reasoning (on Tricky the shadows are turned around).
 import { Quiz } from "./shell.jsx";
-import { shuffle, sample, pick } from "./sound.js";
+import { shuffle, sample, pick } from "./util.js";
 const { useState } = React;
 
 // Pictures with clear, different outlines

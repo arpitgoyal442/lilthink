@@ -1,7 +1,7 @@
 // First Sounds: listen and find the word, the matching first sound, or the rhyme. Practises language and communication.
-// Every question is read aloud; the text on screen is there for the grown-up.
+// The grown-up reads each question aloud; the child listens and chooses.
 import { Quiz } from "./shell.jsx";
-import { shuffle, sample, pick } from "./sound.js";
+import { shuffle, sample, pick } from "./util.js";
 const { useState } = React;
 
 // Words grouped by the sound they start with (each group shares its first letter too)
@@ -29,21 +29,21 @@ const Target = ({ item, children }) => <div className="g-show"><span className="
 function makeRounds(level) {
   if (level === "easy") { // listen for a word and find its picture
     return sample(WORDS, 6).map((w, n) => ({
-      prompt: <p className="g-prompt">Find the <b>{w[1]}</b>.</p>, say: `Find the ${w[1]}.`, after: `Yes! That is the ${w[1]}.`,
+      prompt: <p className="g-prompt">Find the <b>{w[1]}</b>.</p>, after: `Yes! That is the ${w[1]}.`,
       choices: tiles([w, ...sample(WORDS.filter(x => x !== w), 2)], w, n) }));
   }
   if (level === "medium") { // which picture starts with the same sound?
     return sample(Object.keys(STARTS), 6).map((letter, n) => {
       const [target, match] = sample(STARTS[letter], 2);
       const others = sample(Object.keys(STARTS).filter(l => l !== letter), 2).map(l => pick(STARTS[l]));
-      return { prompt: <Target item={target}>Which one starts like <b>{target[1]}</b>?</Target>, say: `${cap(target[1])}. Which one starts like ${target[1]}?`,
+      return { prompt: <Target item={target}>Which one starts like <b>{target[1]}</b>?</Target>,
         after: `Yes! ${cap(target[1])} and ${match[1]} start with the same sound.`, choices: tiles([match, ...others], match, n) };
     });
   }
   return sample(RHYMES, 6).map((pair, n) => { // which picture rhymes?
     const [target, match] = shuffle(pair);
     const others = sample(RHYMES.filter(p => p !== pair), 2).map(p => pick(p));
-    return { prompt: <Target item={target}>Which one rhymes with <b>{target[1]}</b>?</Target>, say: `${cap(target[1])}. Which one rhymes with ${target[1]}?`,
+    return { prompt: <Target item={target}>Which one rhymes with <b>{target[1]}</b>?</Target>,
       after: `Yes! ${cap(target[1])} and ${match[1]} rhyme.`, choices: tiles([match, ...others], match, n) };
   });
 }

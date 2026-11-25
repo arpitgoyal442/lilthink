@@ -1,5 +1,4 @@
 // Get Bunny Home: plan a path around the trees. Practises problem-solving (trying a way, hitting a wall, trying another).
-import { sfx } from "./sound.js";
 const { useState, useEffect, useRef } = React;
 
 // n: grid size. trees: how many cells are blocked. min: the shortest way home must be at least this many hops.
@@ -59,10 +58,10 @@ export function BunnyPlay({ level, report, done }) {
   const move = (dx, dy) => {
     if (won) return;
     const x = at % n + dx, y = Math.floor(at / n) + dy, k = y * n + x;
-    if (x < 0 || y < 0 || x >= n || y >= n || maze.trees.has(k)) { sfx.bad(); setBump(b => b + 1); return; } // a tree or the edge: try another way
+    if (x < 0 || y < 0 || x >= n || y >= n || maze.trees.has(k)) { setBump(b => b + 1); return; } // a tree or the edge: try another way
     moves.current++; setAt(k);
-    if (k !== maze.goal) { sfx.tap(); return; }
-    sfx.good(); setWon(true); report(m + 1, MAZES);
+    if (k !== maze.goal) { return; }
+    setWon(true); report(m + 1, MAZES);
     timer.current = setTimeout(() => {
       if (m + 1 < MAZES) { setM(m + 1); setAt(mazes[m + 1].start); setWon(false); setBump(0); return; }
       const best = mazes.reduce((sum, z) => sum + z.d, 0);

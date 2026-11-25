@@ -9,7 +9,7 @@ Files:
 To change the site, edit `src/` and push; the host runs `npm run build`. To preview locally: `npm install && npm run build`, then serve `dist/` with any static server.
 
 ## Play Zone
-`/games/` is the hub and each of the 12 games has its own page (`/games/memory-match/` and so on), one game per ability on the home page. The games run entirely in the browser: no server calls, no accounts. Stars, the sound setting and the last level are remembered on the device only (browser local storage).
+`/games/` is the hub and each of the 12 games has its own page (`/games/memory-match/` and so on), one game per ability on the home page. The games run entirely in the browser: no server calls, no accounts. Stars and the last level are remembered on the device only (browser local storage).
 To add a game: write its `Play` component in `src/games/`, then add an entry to `GAMES` in `src/games/index.jsx`. Its page and sitemap entry are created by the build.
 
 ## Deploy on Vercel (simplest)

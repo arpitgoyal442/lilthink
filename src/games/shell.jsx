@@ -1,5 +1,5 @@
 // The frame every game sits in: start screen (pick a level), the game itself, and the finish screen.
-import { sfx, say, loadMuted, setMuted, saveStars, loadLevel, saveLevel, pick } from "./sound.js";
+import { saveStars, saveLevel, pick } from "./util.js";
 const { useState, useEffect, useRef } = React;
 
 export const LEVELS = [["easy", "Easy", "Ages 2–3"], ["medium", "Medium", "Ages 3–4"], ["tricky", "Tricky", "Ages 4–5"]];
@@ -38,18 +38,15 @@ export function GameShell({ game, Play }) {
   const [stars, setStars] = useState(0);
   const [tip, setTip] = useState(game.tips[0]);
   const [keepsake, setKeepsake] = useState(null); // something the child made, shown again on the finish screen
-  const [muted, setM] = useState(false);
   const head = useRef(null);
   const first = useRef(true);
 
-  useEffect(() => { setM(loadMuted()); }, []);
   // Move keyboard and screen-reader focus to the new screen's heading
   useEffect(() => { if (first.current) { first.current = false; return; } head.current && head.current.focus(); }, [phase, run]);
 
-  const start = (l) => { sfx.tap(); setLevel(l); saveLevel(l); setProg([0, 0]); setRun(r => r + 1); setPhase("play"); };
-  const done = (s, made = null) => { sfx.win(); setStars(s); setKeepsake(made); saveStars(game.id, s); setTip(pick(game.tips)); setPhase("done"); };
+  const start = (l) => { setLevel(l); saveLevel(l); setProg([0, 0]); setRun(r => r + 1); setPhase("play"); };
+  const done = (s, made = null) => { setStars(s); setKeepsake(made); saveStars(game.id, s); setTip(pick(game.tips)); setPhase("done"); };
   const report = (n, total) => setProg([n, total]);
-  const toggleMute = () => { const m = !muted; setMuted(m); setM(m); if (!m) sfx.tap(); };
   const next = LEVELS[LEVELS.findIndex(l => l[0] === level) + 1];
 
   return (
@@ -60,7 +57,6 @@ export function GameShell({ game, Play }) {
           <span className={"g-dots" + (prog[1] > 7 ? " many" : "")} role="img" aria-label={`${prog[0]} of ${prog[1]} done`}>
             {Array.from({ length: prog[1] }, (_, i) => <i key={i} className={i < prog[0] ? "on" : ""}/>)}
           </span>}
-        <button className="g-mute" aria-pressed={muted} aria-label={muted ? "Turn sound on" : "Turn sound off"} onClick={toggleMute}>{muted ? "🔇" : "🔊"}</button>
       </div>
 
       {phase === "start" &&
@@ -101,7 +97,7 @@ export function GameShell({ game, Play }) {
   );
 }
 
-// A round-by-round "tap the right one" game. Each round: { prompt, say?, quiet?, choices: [{ key, node, label, correct }], after? }.
+// A round-by-round "tap the right one" game. Each round: { prompt, choices: [{ key, node, label, correct }], after? }.
 // A wrong tap wobbles and lets the child try again; there is no timer and nothing is taken away.
 export function Quiz({ rounds, report, done, cls = "" }) {
   const [i, setI] = useState(0);
@@ -112,27 +108,24 @@ export function Quiz({ rounds, report, done, cls = "" }) {
   const r = rounds[i];
 
   useEffect(() => { report(i + (solved ? 1 : 0), rounds.length); }, [i, solved]);
-  useEffect(() => { if (r.say && !r.quiet) say(r.say); }, [i]); // quiet: only read aloud when the speaker button is pressed
   useEffect(() => () => clearTimeout(timer.current), []);
 
   const tap = (c) => {
     if (solved || wrong.includes(c.key)) return;
-    if (!c.correct) { sfx.bad(); setWrong(w => [...w, c.key]); return; }
-    sfx.good();
+    if (!c.correct) { setWrong(w => [...w, c.key]); return; }
+    
     if (!wrong.length) firstTry.current++;
     setSolved(true);
-    if (r.after) say(r.after);
     timer.current = setTimeout(() => {
       if (i + 1 < rounds.length) { setI(i + 1); setWrong([]); setSolved(false); }
       else done(starsFor(firstTry.current, rounds.length));
-    }, r.after ? Math.min(4500, 1300 + r.after.length * 45) : 1200); // long enough to read (or hear) the sentence
+    }, r.after ? Math.min(4500, 1300 + r.after.length * 45) : 1200); // long enough to read the sentence
   };
 
   return (
     <div className={"g-quiz " + cls}>
       <div className="g-q">
         {typeof r.prompt === "function" ? r.prompt(solved) : r.prompt}
-        {r.say && <button className="g-spk" aria-label="Hear it again" onClick={() => say(r.say, true)}>🔊</button>}
       </div>
       <div className={"g-ch g-c" + r.choices.length}>
         {r.choices.map(c => (

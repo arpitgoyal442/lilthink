@@ -1,6 +1,6 @@
 // What Comes Next?: finish the repeating pattern. Practises pattern recognition.
 import { Quiz } from "./shell.jsx";
-import { shuffle } from "./sound.js";
+import { shuffle } from "./util.js";
 const { useState } = React;
 
 export const SHAPES = {

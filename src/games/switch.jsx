@@ -1,6 +1,6 @@
 // Switch It!: sort by colour, then the rule changes to shape. Practises cognitive flexibility (letting go of the old rule).
 import { Quiz } from "./shell.jsx";
-import { sample, pick } from "./sound.js";
+import { sample, pick } from "./util.js";
 import { SHAPES, COLOURS, Piece } from "./pattern.jsx";
 const { useState } = React;
 
@@ -38,7 +38,6 @@ function makeRounds(level) {
         <p className={"g-rule " + rule + (isNew ? " new" : "")}>{isNew ? "Now sort by " : "Sort by "}<b>{rule}</b></p>
         <div className="g-piece" role="img" aria-label={piece.name}><Piece t={piece}/></div>
       </div>,
-      say: isNew ? `Now sort by ${rule}!` : `Sort by ${rule}.`, quiet: n > 0 && !isNew, // read aloud at the start and whenever the rule changes
       choices,
     };
   });

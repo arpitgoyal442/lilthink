@@ -1,6 +1,6 @@
 // Odd One Out: tap the picture that does not belong. Practises attention and focus (and sorting into groups).
 import { Quiz } from "./shell.jsx";
-import { shuffle, sample, pick } from "./sound.js";
+import { shuffle, sample, pick } from "./util.js";
 const { useState } = React;
 
 const SETS = {

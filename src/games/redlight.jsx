@@ -1,5 +1,4 @@
 // Red Light, Green Light: tap to walk on green, and hold back on red. Practises self-regulation (waiting and stopping).
-import { sfx, say } from "./sound.js";
 const { useState, useEffect, useRef } = React;
 
 // steps: taps needed to get home. green/red: how long each light lasts (random between the two numbers, in ms).
@@ -21,9 +20,9 @@ export function RedLightPlay({ level, report, done }) {
 
   const turn = (to) => {
     now.current = to; changed.current = Date.now(); setLight(to);
-    if (to === "green") { sfx.note(4); say("Go!"); timer.current = setTimeout(() => turn("red"), between(plan.green)); }
-    else if (to === "red") { sfx.note(0); say("Stop!"); timer.current = setTimeout(() => turn(plan.yellow ? "yellow" : "green"), between(plan.red)); }
-    else { sfx.note(2); timer.current = setTimeout(() => turn("green"), 1100); }
+    if (to === "green") { timer.current = setTimeout(() => turn("red"), between(plan.green)); }
+    else if (to === "red") { timer.current = setTimeout(() => turn(plan.yellow ? "yellow" : "green"), between(plan.red)); }
+    else { timer.current = setTimeout(() => turn("green"), 1100); }
   };
   // No progress dots here: the turtle on the path already shows how far there is to go.
   useEffect(() => { timer.current = setTimeout(() => turn("green"), 1600); return () => clearTimeout(timer.current); }, []);
@@ -32,15 +31,15 @@ export function RedLightPlay({ level, report, done }) {
     if (home) return;
     if (now.current === "green") {
       const s = steps + 1;
-      sfx.tap(); setSteps(s);
+      setSteps(s);
       if (s === plan.steps) {
-        clearTimeout(timer.current); setHome(true); sfx.good();
+        clearTimeout(timer.current); setHome(true); 
         timer.current = setTimeout(() => done(mistakes.current <= 1 ? 3 : mistakes.current <= 4 ? 2 : 1), 1500);
       }
       return;
     }
     if (now.current === "red" && Date.now() - changed.current < GRACE) return;
-    mistakes.current++; sfx.bad(); setOops(o => o + 1);
+    mistakes.current++; setOops(o => o + 1);
     setSteps(Math.max(0, steps - 1)); // one small step back, nothing more
   };
 

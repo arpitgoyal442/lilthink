@@ -1,6 +1,6 @@
 // How Do They Feel?: find the face that matches a feeling, or that fits a little story. Practises social understanding.
 import { Quiz } from "./shell.jsx";
-import { shuffle, sample, pick } from "./sound.js";
+import { shuffle, sample, pick } from "./util.js";
 const { useState } = React;
 
 const LOOKS = [{ skin: "#EDBE95", hair: "#4A2F25" }, { skin: "#C98F68", hair: "#2B1D17" }, { skin: "#F3D2B3", hair: "#B5762E" }, { skin: "#8E5B3F", hair: "#1F1512" }];
@@ -76,8 +76,7 @@ function faces(feelings, answer, look, n) {
 function makeRounds(level) {
   if (level === "tricky") {
     return sample(STORIES, 6).map(([name, story, answer, not], n) => {
-      const text = `${story} How does ${name} feel?`;
-      return { prompt: <p className="g-prompt g-story">{story}<b>How does {name} feel?</b></p>, say: text, after: `Yes! ${name} feels ${answer}.`,
+      return { prompt: <p className="g-prompt g-story">{story}<b>How does {name} feel?</b></p>, after: `Yes! ${name} feels ${answer}.`,
         choices: faces([answer, ...sample(not, 2)], answer, LOOKS[n % LOOKS.length], n) };
     });
   }
@@ -85,8 +84,7 @@ function makeRounds(level) {
   let answers = [];
   while (answers.length < 6) answers = answers.concat(shuffle(pool));
   return answers.slice(0, 6).map((answer, n) => {
-    const text = `Find the ${answer} face.`;
-    return { prompt: <p className="g-prompt">Find the <b>{answer}</b> face.</p>, say: text, after: `Yes! That face is ${answer}.`,
+    return { prompt: <p className="g-prompt">Find the <b>{answer}</b> face.</p>, after: `Yes! That face is ${answer}.`,
       choices: faces([answer, ...sample(pool.filter(f => f !== answer), count - 1)], answer, pick(LOOKS), n) };
   });
 }

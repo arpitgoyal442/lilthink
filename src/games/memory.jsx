@@ -1,5 +1,5 @@
 // Match the Pairs: flip two cards at a time to find the matching pictures. Practises memory.
-import { sfx, shuffle, sample } from "./sound.js";
+import { shuffle, sample } from "./util.js";
 const { useState, useEffect, useRef } = React;
 
 const PICTURES = [["🐶","dog"],["🐱","cat"],["🐸","frog"],["🐰","rabbit"],["🐻","bear"],["🐵","monkey"],["🐘","elephant"],["🐟","fish"],
@@ -20,13 +20,13 @@ export function MemoryPlay({ level, report, done }) {
 
   const flip = (i) => {
     if (busy.current || open.includes(i) || found.includes(cards[i].id)) return;
-    sfx.tap();
+    
     if (open.length === 0) { setOpen([i]); return; }
     const j = open[0];
     setOpen([j, i]); tries.current++; busy.current = true;
     if (cards[i].id === cards[j].id) {
       later(() => {
-        sfx.good();
+        
         const f = [...found, cards[i].id];
         setFound(f); setOpen([]); busy.current = false; report(f.length, n);
         // 3 stars for a nearly perfect memory, 2 for a good one, 1 for finishing

@@ -1,6 +1,6 @@
 // The Play Zone: the hub at /games/ and one page per game.
 import { GameShell, GHeader, GFooter, Stars } from "./shell.jsx";
-import { loadStars } from "./sound.js";
+import { loadStars } from "./util.js";
 import { MemoryPlay } from "./memory.jsx";
 import { OddPlay } from "./odd.jsx";
 import { PatternPlay } from "./pattern.jsx";
@@ -43,10 +43,10 @@ export const GAMES = [
       "Clap a pattern (clap, clap, stomp... clap, clap, stomp) and ask your child to keep it going."] },
   { id: "feelings", Play: FeelingsPlay, emoji: "😊", tint: "p", title: "How Do They Feel?", ability: "Social Understanding",
     blurb: "Find the happy face, the sad face, the surprised face.",
-    how: "Listen to the question, look at the faces and tap the one that fits.",
+    how: "Read the question together, look at the faces and tap the one that fits.",
     metaTitle: "How Do They Feel? Free Feelings Game for Kids | Lil Think",
     metaDesc: "A free 2-minute feelings game for children aged 2–5. Match faces to emotions and little stories to practise naming feelings. No sign-up, no ads.",
-    parents: "Reading faces and naming feelings is the start of understanding other people. Each question is read aloud, so your child does not need to read. On Tricky, a short story asks them to imagine how someone else feels. Afterwards, ask “when did you feel like that?”",
+    parents: "Reading faces and naming feelings is the start of understanding other people. Read each question to your child, so they do not need to read. On Tricky, a short story asks them to imagine how someone else feels. Afterwards, ask “when did you feel like that?”",
     tips: ["Make a happy, a sad and a surprised face in the mirror together, and guess each other’s.",
       "At story time, pause on a picture and ask, “How do you think they feel? How can you tell?”"] },
   { id: "shadow-match", Play: ShadowPlay, emoji: "🧩", tint: "s", title: "Shadow Match", ability: "Spatial Reasoning",
@@ -83,18 +83,18 @@ export const GAMES = [
       "Play opposites: when you say “day” they say “night”. After a while switch it: now you both say the same word."] },
   { id: "tiny-stories", Play: StoriesPlay, emoji: "🔗", tint: "p", title: "Tiny Stories", ability: "Logical Thinking",
     blurb: "Two pictures tell a story. What happens next?",
-    how: "Listen to the little story in two pictures, then tap the picture that shows what happens next.",
+    how: "Read the little story under the two pictures together, then tap the picture that shows what happens next.",
     metaTitle: "Tiny Stories: Free What-Happens-Next Game for Kids | Lil Think",
     metaDesc: "A free 2-minute sequencing game for children aged 2–5. Two pictures tell a story; choose what happens next and practise cause and effect. No sign-up, no ads.",
-    parents: "Working out what happens next means connecting cause and effect: sun on a snowman, a pin near a balloon, water on a plant. Each story is read aloud. After a right answer, ask “why?” and let your child explain the link in their own words; that explanation is the logical thinking.",
+    parents: "Working out what happens next means connecting cause and effect: sun on a snowman, a pin near a balloon, water on a plant. Read each story aloud to your child. After a right answer, ask “why?” and let your child explain the link in their own words; that explanation is the logical thinking.",
     tips: ["While cooking or bathing, ask “what will happen if...?” before you do it: “...we put the ice in the warm water?”",
       "Tell a three-part story about your day with one part missing: “We put our shoes on, then..., then we were at the park.”"] },
   { id: "first-sounds", Play: SoundsPlay, emoji: "💬", tint: "l", title: "First Sounds", ability: "Language & Communication",
     blurb: "Listen carefully. Find the word, the first sound or the rhyme.",
-    how: "Listen to the question, then tap the picture that answers it. Tap the speaker to hear it again.",
+    how: "A grown-up reads the question aloud. Listen carefully, then tap the picture that answers it.",
     metaTitle: "First Sounds: Free Listening and Rhyming Game for Kids | Lil Think",
     metaDesc: "A free 2-minute listening game for children aged 2–5. Find the word, match first sounds and spot rhymes to build early language skills. No sign-up, no ads.",
-    parents: "Hearing that “ball” and “banana” start the same way, or that “cat” and “hat” rhyme, is one of the strongest foundations for reading later. Easy is about listening for a word and finding it, Medium matches first sounds and Tricky finds rhymes. Turn the sound on for this one, and say the picture names aloud together before choosing.",
+    parents: "Hearing that “ball” and “banana” start the same way, or that “cat” and “hat” rhyme, is one of the strongest foundations for reading later. Easy is about listening for a word and finding it, Medium matches first sounds and Tricky finds rhymes. Read each question aloud, and say the picture names together before choosing.",
     tips: ["Play “I spy” with sounds: “I spy something that starts like ball.” Take turns.",
       "Make silly rhymes with your child’s name or favourite toy: “Teddy, ready, spaghetti!” Real words not required."] },
   { id: "bunny-home", Play: BunnyPlay, emoji: "🐰", tint: "m", title: "Get Bunny Home", ability: "Problem-Solving",

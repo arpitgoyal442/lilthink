@@ -1,9 +1,9 @@
 // Tiny Stories: two pictures tell a little story; what happens next? Practises logical thinking (cause and effect, order).
 import { Quiz } from "./shell.jsx";
-import { shuffle, sample } from "./sound.js";
+import { shuffle, sample } from "./util.js";
 const { useState } = React;
 
-// first picture, second picture, answer, the story read aloud, the sentence after a right answer, and a
+// first picture, second picture, answer, the story in words, the sentence after a right answer, and a
 // tempting-but-wrong picture used on Tricky. "hard" stories have a less obvious link and only appear on Tricky.
 const STORIES = [
   { a: "🌰", b: "🌱", c: ["🌳", "tree"],      tell: "A seed goes into the ground. A little sprout pops up.", after: "Yes! The sprout grows into a tree.",            near: ["🍁", "leaf"] },
@@ -35,7 +35,7 @@ function makeRound(level, n, s) {
       </div>
       <p className="g-cap">{s.tell} <b>What happens next?</b></p>
     </div>);
-  return { prompt, say: `${s.tell} What happens next?`, after: s.after, choices, tell: s.tell };
+  return { prompt, after: s.after, choices };
 }
 
 export function StoriesPlay({ level, report, done }) {
