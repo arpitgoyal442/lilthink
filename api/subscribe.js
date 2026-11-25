@@ -23,7 +23,8 @@ async function sha(s) {
 
 export default async function handler(req, res) {
   res.setHeader("Cache-Control", "no-store");
-  const fail = (code, error) => res.status(code).json({ error });
+  // ref is a short, non-secret code saying which step failed (e.g. "lookup-401"), to make problems easy to report
+  const fail = (code, error, ref) => res.status(code).json(ref ? { error, ref } : { error });
 
   if (req.method !== "POST") { res.setHeader("Allow", "POST"); return fail(405, "Method not allowed."); }
   if (!env("RESEND_API_KEY")) { console.error("RESEND_API_KEY is not set"); return fail(500, "Signup is temporarily unavailable. Please try again later."); }
@@ -45,7 +46,7 @@ export default async function handler(req, res) {
     // 1) Prevent duplicates: one contact per email
     const existing = await resend(`/contacts/${encodeURIComponent(email)}`);
     if (existing.ok) return res.status(200).json({ status: "already_subscribed" });
-    if (existing.status !== 404) { console.error("contact lookup failed", existing.status, await existing.text()); return fail(502, "We couldn’t sign you up just now. Please try again in a moment."); }
+    if (existing.status !== 404) { console.error("contact lookup failed", existing.status, await existing.text()); return fail(502, "We couldn’t sign you up just now. Please try again in a moment.", `lookup-${existing.status}`); }
 
     // 2) Save the contact (only reached with valid email + consent)
     const segment = env("RESEND_SEGMENT_ID");
@@ -57,7 +58,7 @@ export default async function handler(req, res) {
       const text = await created.text();
       if (created.status === 409 || /already|exist/i.test(text)) return res.status(200).json({ status: "already_subscribed" });
       console.error("contact create failed", created.status, text);
-      return fail(502, "We couldn’t sign you up just now. Please try again in a moment.");
+      return fail(502, "We couldn’t sign you up just now. Please try again in a moment.", `create-${created.status}`);
     }
 
     // 3) Welcome email from your own domain
@@ -75,7 +76,7 @@ export default async function handler(req, res) {
     if (!sent.ok) {
       console.error("welcome email failed", sent.status, await sent.text());
       await resend(`/contacts/${encodeURIComponent(email)}`, { method: "DELETE" }).catch(() => {}); // roll back so they can retry
-      return fail(502, "We couldn’t send your welcome email. Please try again in a moment.");
+      return fail(502, "We couldn’t send your welcome email. Please try again in a moment.", `send-${sent.status}`);
     }
 
     // 4) Add the subscriber to the Google Sheet (balance 100, question id 1). Awaited so the function is not
@@ -95,6 +96,6 @@ export default async function handler(req, res) {
     return res.status(200).json({ status: "subscribed" });
   } catch (e) {
     console.error("subscribe error", e);
-    return fail(502, "We couldn’t sign you up just now. Please try again in a moment.");
+    return fail(502, "We couldn’t sign you up just now. Please try again in a moment.", `error-${e && e.name || "unknown"}`);
   }
 }
