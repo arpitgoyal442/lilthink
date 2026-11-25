@@ -5,7 +5,7 @@ Files: `index.html` (the site) · `api/subscribe.js` (sends the welcome email vi
 ## Deploy on Vercel (simplest)
 1. Put this folder in a GitHub repo (or run `npx vercel` inside it), import it into Vercel and add your domain.
 2. In Vercel > Settings > Environment Variables, add the values from `.env.example`.
-   `RESEND_API_KEY` = create one in Resend > API Keys (use "Sending access").
+   `RESEND_API_KEY` = create one in Resend > API Keys with **Full access** (the signup saves a contact as well as sending email, which a "Sending access" key cannot do).
 3. Redeploy, then subscribe with your own email to test.
 
 ## Deploy on Netlify instead
