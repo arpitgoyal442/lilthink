@@ -1,7 +1,9 @@
 // POST /api/subscribe  (Vercel serverless function; the same logic ports to Netlify / Cloudflare Workers)
 // Flow: validate email + consent -> skip if already a contact -> save contact in Resend ->
-//       send welcome email from your domain -> (optional) notify n8n. Secrets live in env vars only.
+//       send welcome email from your domain -> add a row to the Google Sheet -> (optional) notify n8n.
+//       Secrets live in env vars only.
 import { SUBJECT, HTML, TEXT } from "./_welcome.js";
+import { addSubscriberToSheet } from "./_sheet.js";
 
 const RESEND = "https://api.resend.com";
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
@@ -76,7 +78,11 @@ export default async function handler(req, res) {
       return fail(502, "We couldn’t send your welcome email. Please try again in a moment.");
     }
 
-    // 4) Optional: tell n8n (best effort, never blocks the signup). The secret stays server-side.
+    // 4) Add the subscriber to the Google Sheet (balance 100, question id 1). Awaited so the function is not
+    //    stopped before the row is written; a failure is logged and never blocks the signup.
+    await addSubscriberToSheet({ email, subscribedAt: new Date().toISOString(), source: String(body.source || "landing").slice(0, 40) });
+
+    // 5) Optional: tell n8n (best effort, never blocks the signup). The secret stays server-side.
     if (env("N8N_WEBHOOK_URL")) {
       fetch(env("N8N_WEBHOOK_URL"), {
         method: "POST",
