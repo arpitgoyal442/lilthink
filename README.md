@@ -21,6 +21,15 @@ Each new subscriber is added to your Google Sheet with Balance 100 and Question 
 
 The sheet's first row must be headings including `Email`, `Balance` and `Question Id` (an empty sheet gets them automatically). To change the starting values, edit `api/_sheet.js`.
 
+If a row does not appear, look at the signup response (browser dev tools > Network > `subscribe`). `sheet` says what happened and `sheetRef` says why:
+- `url-not-set`: `SHEETS_WEBHOOK_URL` is missing on the host, or the site was not redeployed after adding it.
+- `unauthorized`: `SHEETS_WEBHOOK_SECRET` differs from `SECRET` in the script, or `SECRET` is still the `CHANGE-ME` placeholder.
+- `not-json-…`: the URL is not the `/exec` web app URL, access is not **Anyone**, or the script crashed (Apps Script > Executions shows the error).
+- `no_email_column` / `sheet_not_found`: the tab picked by `SHEET_GID` has no `Email` heading in row 1, or does not exist.
+- `sheet: "added"` but no row where you look: the script is writing to a different tab; set `SHEET_GID` to the number after `gid=` in the tab's URL.
+
+Subscribing again with an email that is already a contact adds its missing row, without a second welcome email.
+
 ## Before going live
 - Resend: your domain `lilthink.com` must show **Verified**, and `FROM_EMAIL` must use it.
 - Add your own email to a test run and check it lands in the inbox (not spam).

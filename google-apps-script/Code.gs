@@ -10,7 +10,10 @@
  * After editing this file later: Deploy > Manage deployments > edit > Version: New version.
  */
 const SECRET = "CHANGE-ME-to-a-long-random-string";
-const SHEET_NAME = ""; // tab to write to; leave empty to use the first tab
+// Tab to write to. SHEET_GID is the number after "gid=" in the tab's URL; it wins over SHEET_NAME.
+// Leave both empty (null and "") to use the first tab.
+const SHEET_GID = 1483044572;
+const SHEET_NAME = "";
 
 // Column headings this script understands. Capitals, spaces and punctuation are ignored,
 // so "Question Id", "question_id" and "QuestionID" all match.
@@ -35,7 +38,8 @@ function doPost(e) {
   lock.waitLock(20000);
   try {
     const ss = SpreadsheetApp.getActiveSpreadsheet();
-    const sheet = SHEET_NAME ? ss.getSheetByName(SHEET_NAME) : ss.getSheets()[0];
+    const sheet = SHEET_GID !== null ? ss.getSheets().filter(function (t) { return t.getSheetId() === SHEET_GID; })[0]
+      : SHEET_NAME ? ss.getSheetByName(SHEET_NAME) : ss.getSheets()[0];
     if (!sheet) return reply({ ok: false, error: "sheet_not_found" });
 
     if (sheet.getLastRow() === 0) sheet.appendRow(DEFAULT_HEADERS); // empty sheet: create the heading row

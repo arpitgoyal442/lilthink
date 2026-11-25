@@ -42,10 +42,19 @@ export default async function handler(req, res) {
   if (!email || email.length > 254 || !EMAIL_RE.test(email)) return fail(400, "Please enter a valid email address, like name@example.com.");
   if (body.consent !== true) return fail(400, "Please agree to receive daily activity emails to subscribe.");
 
+  const source = String(body.source || "landing").slice(0, 40);
+  // Writes the sheet row and reports what happened: sheet is "added", "exists", "skipped" or "failed",
+  // and sheetRef says why when no row was written. The script keeps one row per email, so this is safe to repeat.
+  const done = async (status) => {
+    const sheet = await addSubscriberToSheet({ email, subscribedAt: new Date().toISOString(), source });
+    return res.status(200).json({ status, sheet: sheet.status, ...(sheet.reason ? { sheetRef: sheet.reason } : {}) });
+  };
+
   try {
-    // 1) Prevent duplicates: one contact per email
+    // 1) Prevent duplicates: one contact per email. Still make sure they have a sheet row,
+    //    so anyone who signed up while the sheet was not working gets added on their next try.
     const existing = await resend(`/contacts/${encodeURIComponent(email)}`);
-    if (existing.ok) return res.status(200).json({ status: "already_subscribed" });
+    if (existing.ok) return done("already_subscribed");
     if (existing.status !== 404) { console.error("contact lookup failed", existing.status, await existing.text()); return fail(502, "We couldn’t sign you up just now. Please try again in a moment.", `lookup-${existing.status}`); }
 
     // 2) Save the contact (only reached with valid email + consent)
@@ -56,7 +65,7 @@ export default async function handler(req, res) {
     });
     if (!created.ok) {
       const text = await created.text();
-      if (created.status === 409 || /already|exist/i.test(text)) return res.status(200).json({ status: "already_subscribed" });
+      if (created.status === 409 || /already|exist/i.test(text)) return done("already_subscribed");
       console.error("contact create failed", created.status, text);
       return fail(502, "We couldn’t sign you up just now. Please try again in a moment.", `create-${created.status}`);
     }
@@ -79,21 +88,19 @@ export default async function handler(req, res) {
       return fail(502, "We couldn’t send your welcome email. Please try again in a moment.", `send-${sent.status}`);
     }
 
-    // 4) Add the subscriber to the Google Sheet (balance 100, question id 1). Awaited so the function is not
-    //    stopped before the row is written; a failure is logged and never blocks the signup.
-    await addSubscriberToSheet({ email, subscribedAt: new Date().toISOString(), source: String(body.source || "landing").slice(0, 40) });
-
-    // 5) Optional: tell n8n (best effort, never blocks the signup). The secret stays server-side.
+    // 4) Optional: tell n8n (best effort, never blocks the signup). The secret stays server-side.
     if (env("N8N_WEBHOOK_URL")) {
       fetch(env("N8N_WEBHOOK_URL"), {
         method: "POST",
         headers: { "Content-Type": "application/json", ...(env("N8N_WEBHOOK_SECRET") ? { "X-Webhook-Secret": env("N8N_WEBHOOK_SECRET") } : {}) },
-        body: JSON.stringify({ event: "subscribed", email, consent: true, consentText: String(body.consentText || "").slice(0, 300), consentAt: String(body.consentAt || ""), source: String(body.source || "landing").slice(0, 40) }),
+        body: JSON.stringify({ event: "subscribed", email, consent: true, consentText: String(body.consentText || "").slice(0, 300), consentAt: String(body.consentAt || ""), source }),
         signal: AbortSignal.timeout(4000),
       }).catch(e => console.error("n8n webhook failed", e.message));
     }
 
-    return res.status(200).json({ status: "subscribed" });
+    // 5) Add the subscriber to the Google Sheet (balance 100, question id 1). Awaited so the function is not
+    //    stopped before the row is written; a failure is reported in the response and never blocks the signup.
+    return done("subscribed");
   } catch (e) {
     console.error("subscribe error", e);
     return fail(502, "We couldn’t sign you up just now. Please try again in a moment.", `error-${e && e.name || "unknown"}`);
